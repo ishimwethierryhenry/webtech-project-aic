@@ -11,13 +11,16 @@
     <a th:href="@{/product/search/all}"> Product List</a> <br/>
     <a th:href="@{/customer/search/all}"> Customer List</a> <br/>
 </div>
+
 <div>
     <span th:if="${message != null}" th:text="${message}" style="color: green"></span>
     <span th:if="${error != null}" th:text="${error}" style="color: red"></span>
 </div>
-<h1>Product Registration page</h1>
+
+<h1>Product Registration Page</h1>
 <div>
     <form th:action="@{/product/register}" th:object="${product}" method="post">
+
         <label>Product Name: </label>
         <input type="text" th:field="*{productName}" required> <br/>
 
@@ -39,6 +42,17 @@
                     th:value="${state}"
                     th:text="${state}"></option>
         </select><br/>
+
+        <!-- Category Selection -->
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" th:field="*{category}" required>
+                <option value="">Select Category</option>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat.id}"
+                        th:text="${cat.name}"></option>
+            </select>
+        </div><br/>
 
         <button type="submit">Register</button>
     </form>

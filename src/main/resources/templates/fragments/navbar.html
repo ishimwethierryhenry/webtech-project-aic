@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="navbar">
-    <a th:href="@{/customer/register}">Register Customer</a>
-    <a th:href="@{/customer/search/all}">Customer List</a>
-    <a th:href="@{/product/register}">Register Product</a>
-    <a th:href="@{/product/search/all}">Product List</a>
-    <a th:href="@{/dashboard}">Dashboard (Both)</a>
-</div>
+<!-- Define a reusable fragment named 'navbar' -->
+<div th:fragment="navbar">
+    <div class="navbar">
+        <a th:href="@{/customer/register}">Register Customer</a>
+        <a th:href="@{/customer/search/all}">Customer List</a>
+        <a th:href="@{/product/register}">Register Product</a>
+        <a th:href="@{/product/search/all}">Product List</a>
+        <a th:href="@{/dashboard}">Dashboard (Both)</a>
+    </div>
 </div>
 </body>
 </html>

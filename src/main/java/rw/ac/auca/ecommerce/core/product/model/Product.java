@@ -1,9 +1,6 @@
 package rw.ac.auca.ecommerce.core.product.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import rw.ac.auca.ecommerce.core.base.AbstractBaseEntity;
@@ -27,6 +24,9 @@ public class Product extends AbstractBaseEntity {
 
     @Column(name = "description" , nullable = false)
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private ProductCategory category;
 
     @Column(name = "price" , nullable = false)
     private Double price;
