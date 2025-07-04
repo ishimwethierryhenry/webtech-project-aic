@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .order-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .order-details {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .status-pending { background: #ffea80; color: #856404; }
+        .status-processing { background: #a0d2ff; color: #004085; }
+        .status-shipped { background: #b8e986; color: #155724; }
+        .status-delivered { background: #c3e6cb; color: #155724; }
+        .status-cancelled { background: #f5c6cb; color: #721c24; }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container my-5">
+    <div class="order-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Order Details:
+                <span th:text="${'ORD-' + order.id.toString().substring(0, 8)}"></span>
+            </h2>
+            <span th:class="'status-badge status-' + ${order.status.name().toLowerCase()}"
+                  th:text="${order.status}"></span>
+        </div>
+        <p class="text-muted" th:text="${'Order Date: ' + #temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></p>
+    </div>
+
+    <!-- Customer Information -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Customer Information</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong>
+                        <span th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></span>
+                    </p>
+                    <p><strong>Email:</strong>
+                        <span th:text="${order.customer.email}"></span>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Phone:</strong>
+                        <span th:text="${order.customer.phoneNumber}"></span>
+                    </p>
+                    <p><strong>Shipping Address:</strong>
+                        <span th:text="${order.shippingAddress}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Order Items</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${order.items}">
+                        <td th:text="${item.product.productName}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(item.priceAtOrder, 1, 2)}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(item.priceAtOrder * item.quantity, 1, 2)}"></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-end">Subtotal:</th>
+                        <td th:text="${'$' + #numbers.formatDecimal(order.totalAmount, 1, 2)}"></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Notes -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Order Notes</h4>
+        </div>
+        <div class="card-body">
+            <p th:text="${order.notes != null} ? ${order.notes} : 'No notes available'"></p>
+        </div>
+    </div>
+
+    <!-- Status Update -->
+    <div class="card">
+        <div class="card-header">
+            <h4>Update Order Status</h4>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/order/update-status}" method="post">
+                <input type="hidden" name="orderId" th:value="${order.id}">
+                <div class="row">
+                    <div class="col-md-8">
+                        <select class="form-select" name="status" required>
+                            <option th:each="status : ${T(rw.ac.auca.ecommerce.core.order.model.OrderStatus).values()}"
+                                    th:value="${status}"
+                                    th:selected="${status == order.status}"
+                                    th:text="${status}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">Update Status</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

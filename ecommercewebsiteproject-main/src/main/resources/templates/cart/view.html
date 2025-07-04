@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container mt-5">
+    <h1>Your Shopping Cart</h1>
+
+    <div th:if="${cart.items.isEmpty()}">
+        <div class="alert alert-info">
+            Your cart is empty. <a th:href="@{/products}">Browse products</a>
+        </div>
+    </div>
+
+    <div th:unless="${cart.items.isEmpty()}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cart.items}">
+                <td th:text="${item.product.productName}"></td>
+                <td th:text="${'$' + #numbers.formatDecimal(item.product.price, 1, 2)}"></td>
+                <td>
+                    <form th:action="@{'/cart/update/' + ${item.id}}" method="post">
+                        <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="form-control" style="width: 80px;">
+                        <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
+                    </form>
+                </td>
+                <td th:text="${'$' + #numbers.formatDecimal(item.product.price * item.quantity, 1, 2)}"></td>
+                <td>
+                    <form th:action="@{'/cart/remove/' + ${item.id}}" method="post">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" class="text-end"><strong>Cart Total:</strong></td>
+                <td th:text="${'$' + #numbers.formatDecimal(cart.totalAmount, 1, 2)}"></td>
+                <td>
+                    <a th:href="@{/checkout}" class="btn btn-success">Proceed to Checkout</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</body>
+</html>

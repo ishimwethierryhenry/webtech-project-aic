@@ -1,0 +1,18 @@
+<!-- templates/order/checkout.html -->
+<form th:action="@{'/order/checkout/' + ${customer.id}}"
+      th:object="${orderRequest}" method="post">
+
+  <h2>Shipping Information</h2>
+  <div class="mb-3">
+    <label>Shipping Address</label>
+    <textarea th:field="*{shippingAddress}" class="form-control" required></textarea>
+  </div>
+
+  <h2>Payment Information</h2>
+  <!-- Payment fields would go here -->
+
+  <h2>Order Summary</h2>
+  <!-- Display cart items similar to account.html -->
+
+  <button type="submit" class="btn btn-primary">Place Order</button>
+</form>

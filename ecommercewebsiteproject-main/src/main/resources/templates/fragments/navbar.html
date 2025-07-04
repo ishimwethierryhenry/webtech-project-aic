@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<!-- fragments/navbar.html -->
+<div class="navbar">
+    <!-- ... existing links ... -->
+    <a th:href="@{'/customer/account/' + ${session.customerId}}">My Account</a>
+    <a th:href="@{'/cart/view/' + ${session.customerId}}">My Cart</a>
+    <a sec:authorize="isAuthenticated()" th:href="@{/cart}">My Cart</a>
+</div>
+<!-- Define a reusable fragment named 'navbar' -->
+<div th:fragment="navbar">
+    <div class="navbar">
+        <a th:href="@{/customer/register}">Register Customer</a>
+        <a th:href="@{/customer/search/all}">Customer List</a>
+        <a th:href="@{/product/register}">Register Product</a>
+        <a th:href="@{/product/search/all}">Product List</a>
+        <a th:href="@{/dashboard}">Dashboard (Both)</a>
+    </div>
+</div>
+</body>
+</html>
