@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container py-5">
+    <h2 th:text="'Warehouse: ' + ${warehouse.name}">Warehouse Name</h2>
+    <p><strong>Location:</strong> <span th:text="${warehouse.location}">Location</span></p>
+    <p><strong>Total Products:</strong> <span th:text="${warehouse.productStock.size()}">0</span></p>
+    <p><strong>Total Stock:</strong>
+        <span th:text="${#numbers.sum(warehouse.productStock.values()) + ' units'}">0 units</span>
+    </p>
+
+    <hr>
+    <h4>Products in this warehouse:</h4>
+    <ul class="list-group">
+        <li th:each="entry : ${warehouse.productStock.entrySet()}" class="list-group-item d-flex justify-content-between">
+            <span th:text="${entry.key.name}">Product Name</span>
+            <span th:text="${entry.value + ' units'}">Quantity</span>
+        </li>
+    </ul>
+
+    <a href="/warehouse/list" class="btn btn-primary mt-4">Back to Warehouse List</a>
+</div>
+</body>
+</html>

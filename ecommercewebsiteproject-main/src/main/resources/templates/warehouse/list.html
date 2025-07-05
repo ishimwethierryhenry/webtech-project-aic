@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Warehouses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container my-4">
+    <h2>
+        Warehouses
+        <a href="/warehouse/add" class="btn btn-primary float-end">+ Add Warehouse</a>
+    </h2>
+
+    <div th:each="warehouse : ${warehouses}" class="card my-3 p-3">
+        <h5>
+            <i class="bi bi-box-seam"></i>
+            <b th:text="${warehouse.name}">Warehouse Name</b>
+            <small class="text-muted" th:text="${warehouse.location}">Location</small>
+        </h5>
+
+        <p>
+            Products: <b th:text="${warehouse.productStock.size()}">0</b><br/>
+            Total Stock: <b th:text="${stockSums[warehouse.id]}">0</b> units
+        </p>
+
+        <hr/>
+
+        <p><b>Products in this warehouse:</b></p>
+        <ul>
+            <li th:each="entry : ${warehouse.productStock.entrySet()}"
+                th:text="${entry.key.productName + ' ' + entry.value + ' units'}">
+                Product 10 units
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
