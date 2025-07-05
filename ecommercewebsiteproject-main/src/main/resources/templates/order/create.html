@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Create Order</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         .order-form {
             background-color: #f8f9fa;
@@ -28,17 +28,7 @@
                 <h2 class="text-center mb-4">Create New Order</h2>
 
                 <form th:action="@{/order/create}" th:object="${order}" method="post">
-                    <!-- Customer Selection -->
-                    <div class="mb-3">
-                        <label class="form-label">Customer</label>
-                        <select class="form-select" name="customerId" required>
-                            <option value="">Select Customer</option>
-                            <option th:each="cust : ${customers}"
-                                    th:value="${cust.id}"
-                                    th:text="${cust.firstName + ' ' + cust.lastName + ' (' + cust.email + ')'}">
-                            </option>
-                        </select>
-                    </div>
+                    <!-- Remove customer selection - customer is from session -->
 
                     <!-- Shipping Address -->
                     <div class="mb-3">
@@ -56,13 +46,15 @@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
-                                <th>Action</th>
+                                <th><!-- Action --></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="item, itemStat : *{items}">
                                 <td>
-                                    <select class="form-select" th:field="*{items[__${itemStat.index}__].product}" required>
+                                    <select class="form-select"
+                                            th:field="*{items[__${itemStat.index}__].product.id}"
+                                            required>
                                         <option value="">Select Product</option>
                                         <option th:each="prod : ${products}"
                                                 th:value="${prod.id}"
@@ -72,31 +64,32 @@
                                 </td>
                                 <td>
                                     <span th:if="${item.product != null}"
-                                          th:text="'$' + ${#numbers.formatDecimal(item.product.price, 1, 2)}">
-                                    </span>
+                                          th:text="'$' + ${#numbers.formatDecimal(item.product.price, 1, 2)}"></span>
                                     <span th:if="${item.product == null}">$0.00</span>
                                 </td>
                                 <td>
                                     <input type="number" class="form-control"
                                            th:field="*{items[__${itemStat.index}__].quantity}"
-                                           min="1" value="1" required>
+                                           min="1" required />
                                 </td>
                                 <td>
-                                    <span th:if="${item.product != null}">
-                                        <span th:text="'$' + ${#numbers.formatDecimal(item.product.price * item.quantity, 1, 2)}"></span>
-                                    </span>
+                                    <span th:if="${item.product != null}"
+                                          th:text="'$' + ${#numbers.formatDecimal(item.product.price * item.quantity, 1, 2)}"></span>
                                     <span th:if="${item.product == null}">$0.00</span>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                            th:if="${itemStat.index > 0}"
-                                            th:onclick="'removeItem(' + ${itemStat.index} + ')'">Remove</button>
+                                    <!-- Optionally add remove button, requires backend support -->
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-secondary"
-                                th:onclick="'location.href=\'/order/add-item\''">Add Item</button>
+
+                        <!-- Add Item button -->
+                        <button type="submit" formaction="#"
+                                onclick="this.form.action='/order/add-item'; this.form.method='post';"
+                                class="btn btn-secondary">
+                            Add Item
+                        </button>
                     </div>
 
                     <!-- Notes -->
@@ -116,14 +109,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function removeItem(index) {
-        if (index > 0) {
-            // Remove item from the form
-            const row = document.querySelector(`tr:nth-child(${index + 1})`);
-            if (row) row.remove();
-        }
-    }
-</script>
 </body>
 </html>

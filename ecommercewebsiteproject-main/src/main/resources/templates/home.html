@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>E-Commerce Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>eCommerce Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="mb-4">E-Commerce System</h1>
+    <h1>Welcome to eCommerce Platform</h1>
 
-    <h3>Customer</h3>
+    <h3>Products</h3>
     <ul>
-        <li><a th:href="@{/customer/register}">Register New Customer</a></li>
-        <li><a th:href="@{/customer/search/all}">View All Customers</a></li>
+        <li><a th:href="@{/product/browse}">Browse Products</a></li>
+        <li><a th:href="@{/product/search/all}">Search All Products</a></li>
+        <li><a th:href="@{/product/register}">Register New Product</a></li>
     </ul>
 
     <h3>Cart</h3>
-    <form th:action="@{/cart/VIEW}" method="get" class="mb-3">
-        <label>Customer ID:</label>
-        <input type="text" name="customerId" class="form-control mb-2" placeholder="Enter Customer UUID">
-        <button type="submit" class="btn btn-primary">View Cart</button>
-    </form>
-
-    <form th:action="@{/cart/add}" method="post">
-        <div class="mb-2">
-            <label>Customer ID:</label>
-            <input type="text" name="customerId" class="form-control" placeholder="Enter Customer UUID">
-        </div>
-        <div class="mb-2">
-            <label>Product ID:</label>
-            <input type="text" name="productId" class="form-control" placeholder="Enter Product UUID">
-        </div>
-        <div class="mb-2">
-            <label>Quantity:</label>
-            <input type="number" name="quantity" class="form-control" value="1">
-        </div>
-        <button type="submit" class="btn btn-success">Add to Cart</button>
-    </form>
-
-    <h3>Checkout</h3>
-    <form th:action="@{/order/checkout/GO}" method="get" class="mb-3">
-        <label>Customer ID:</label>
-        <input type="text" name="customerId" class="form-control mb-2" placeholder="Enter Customer UUID">
-        <button type="submit" class="btn btn-warning">Go to Checkout</button>
-    </form>
+    <ul>
+        <li><a th:href="@{/cart}">View Cart</a></li>
+        <!-- Add to cart is POST, so no direct link here -->
+    </ul>
 
     <h3>Orders</h3>
     <ul>
-        <li><a th:href="@{/order/search/all}">View All Orders</a></li>
-        <li><a th:href="@{/order/create}">Create Order Manually</a></li>
+        <li><a th:href="@{/order/manage}">Manage Your Orders</a></li>
+        <li><a th:href="@{/order/create}">Create Order</a></li>
+        <li><a th:href="@{/order/search/all}">View All Orders (Admin)</a></li>
     </ul>
+
+    <h3>Customers</h3>
+    <ul>
+        <li><a th:href="@{/customer/search/all}">View All Customers</a></li>
+        <li><a th:href="@{/customer/register}">Register New Customer</a></li>
+    </ul>
+
+    <h3>Customer Account</h3>
+    <p>Go to your account dashboard (replace CUSTOMER_ID in URL):</p>
+    <pre>/customer/account/{CUSTOMER_ID}</pre>
+    <p><small>(Replace <code>{CUSTOMER_ID}</code> with your actual customer UUID.)</small></p>
+
 </div>
 </body>
 </html>

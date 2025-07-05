@@ -45,18 +45,25 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public Order updateOrderStatus(UUID orderId, OrderStatus status) {
-        return null;
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        order.setStatus(status);
+        return orderRepository.save(order);
     }
+
+
 
     @Override
     public Order getOrderById(UUID id) {
-        return null;
+        return orderRepository.findById(id).orElse(null);
     }
+
 
     @Override
     public List<Order> getOrdersByCustomer(UUID customerId) {
-        return List.of();
+        return orderRepository.findByCustomerId(customerId);
     }
 
     @Override

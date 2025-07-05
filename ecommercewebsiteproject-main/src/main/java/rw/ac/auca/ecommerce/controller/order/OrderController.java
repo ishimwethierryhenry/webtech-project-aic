@@ -13,7 +13,7 @@ import rw.ac.auca.ecommerce.core.order.service.IOrderService;
 import rw.ac.auca.ecommerce.core.product.model.Product;
 import rw.ac.auca.ecommerce.core.product.service.IProductService;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,65 +26,97 @@ public class OrderController {
     private final ICustomerService customerService;
     private final IProductService productService;
 
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("order", new Order());
-        model.addAttribute("customers", customerService.findCustomersByState(Boolean.TRUE));
-        model.addAttribute("products", productService.findProductsByState(Boolean.TRUE));
-        model.addAttribute("statuses", OrderStatus.values());
-
-        List<OrderItem> items = new ArrayList<>();
-        items.add(new OrderItem());
-        model.addAttribute("items", items);
-
-        return "order/create";
-    }
-
-    @PostMapping("/create")
-    public String createOrder(@ModelAttribute Order order,
-                              @RequestParam("customerId") UUID customerId,
-                              Model model) {
-        Customer customer = customerService.findCustomerByIdAndState(customerId, Boolean.TRUE);
-        order.setCustomer(customer);
-
-        for (OrderItem item : order.getItems()) {
-            Product product = productService.findProductByIdAndState(item.getProduct().getId(), Boolean.TRUE);
-            item.setProduct(product);
-        }
-
-        orderService.createOrder(order);
-        model.addAttribute("message", "Order created successfully");
-        return "redirect:/order/search/all";
-    }
-
-    @GetMapping("/search/all")
-    public String getAllOrders(Model model) {
-        model.addAttribute("orders", orderService.getAllOrders());
-        return "order/list";
+    @GetMapping("/manage")
+    public String orderManagement(Model model) {
+        List<Order> orders = orderService.getAllOrders(); // Show all without filtering by customer
+        model.addAttribute("orders", orders);
+        return "order/management";
     }
 
     @GetMapping("/{id}")
     public String getOrderDetails(@PathVariable UUID id, Model model) {
-        model.addAttribute("order", orderService.getOrderById(id));
+        Order order = orderService.getOrderById(id);
+        if (order == null) return "redirect:/order/manage?error=notfound";
+
+        model.addAttribute("order", order);
         return "order/details";
     }
 
     @PostMapping("/update-status")
     public String updateOrderStatus(@RequestParam UUID orderId,
-                                    @RequestParam OrderStatus status,
-                                    Model model) {
+                                    @RequestParam OrderStatus status) {
         orderService.updateOrderStatus(orderId, status);
-        model.addAttribute("message", "Order status updated successfully");
         return "redirect:/order/" + orderId;
+    }
+
+    @PostMapping("/cancel/{id}")
+    public String cancelOrder(@PathVariable UUID id) {
+        orderService.updateOrderStatus(id, OrderStatus.CANCELLED);
+        return "redirect:/order/manage";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("order", new Order());
+        model.addAttribute("products", productService.findProductsByState(true));
+        model.addAttribute("statuses", OrderStatus.values());
+        model.addAttribute("items", List.of(new OrderItem()));
+        return "order/create";
+    }
+
+    @PostMapping("/create")
+    public String createOrder(@ModelAttribute Order order, Model model) {
+        Customer customer = customerService.findCustomersByState(true).stream().findFirst().orElse(null);
+        if (customer != null) {
+            order.setCustomer(customer);
+        }
+
+        for (OrderItem item : order.getItems()) {
+            Product product = productService.findProductByIdAndState(item.getProduct().getId(), true);
+            item.setProduct(product);
+        }
+
+        orderService.createOrder(order);
+        model.addAttribute("message", "Order created successfully");
+        return "redirect:/order/manage";
     }
 
     @PostMapping("/add-item")
     public String addOrderItem(@ModelAttribute Order order, Model model) {
         order.getItems().add(new OrderItem());
         model.addAttribute("order", order);
-        model.addAttribute("customers", customerService.findCustomersByState(Boolean.TRUE));
-        model.addAttribute("products", productService.findProductsByState(Boolean.TRUE));
+        model.addAttribute("products", productService.findProductsByState(true));
         model.addAttribute("statuses", OrderStatus.values());
         return "order/create";
+    }
+
+    @GetMapping("/make/{productId}")
+    public String makeOrderFromSingleProduct(@PathVariable UUID productId, Model model) {
+        Product product = productService.findProductByIdAndState(productId, true);
+        if (product == null) return "redirect:/product/browse?error=notfound";
+
+        Customer customer = customerService.findCustomersByState(true).stream().findFirst().orElse(null);
+
+        Order order = new Order();
+        order.setCustomer(customer);
+        order.setStatus(OrderStatus.PENDING);
+
+        OrderItem item = new OrderItem();
+        item.setProduct(product);
+        item.setQuantity(1);
+        item.setPriceAtOrder(BigDecimal.valueOf(product.getPrice()));
+        item.setOrder(order);
+
+        order.setItems(List.of(item));
+
+        model.addAttribute("order", order);
+        model.addAttribute("statuses", OrderStatus.values());
+        return "order/create";
+    }
+
+    @GetMapping("/search/all")
+    public String getAllOrders(Model model) {
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "order/list";
     }
 }

@@ -21,6 +21,8 @@ import java.util.UUID;
 public class Product extends AbstractBaseEntity {
     @Column(name = "product_name" , nullable = false)
     private String productName;
+    @Column(name = "image_url")
+    private String imageUrl = "/images/default-product.png";
 
     @Column(name = "description" , nullable = false)
     private String description;

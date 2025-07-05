@@ -1,35 +1,39 @@
 package rw.ac.auca.ecommerce.controller;
 
-import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import rw.ac.auca.ecommerce.controller.api.OrderRequest;
-import rw.ac.auca.ecommerce.core.cart.model.Cart;
 import rw.ac.auca.ecommerce.core.cart.service.ICartService;
-import rw.ac.auca.ecommerce.core.customer.model.Customer;
 import rw.ac.auca.ecommerce.core.customer.service.ICustomerService;
 import rw.ac.auca.ecommerce.core.order.model.Order;
 import rw.ac.auca.ecommerce.core.order.service.IOrderService;
+import rw.ac.auca.ecommerce.service.SessionService;
 
 import java.util.UUID;
 
-// CheckoutController.java
 @Controller
 @RequestMapping("/order/checkout")
 @RequiredArgsConstructor
 public class CheckoutController {
+
     private final ICartService cartService;
     private final IOrderService orderService;
     private final ICustomerService customerService;
+    private final SessionService sessionService;
 
-    @GetMapping("/{customerId}")
-    public String showCheckoutForm(
-            @PathVariable UUID customerId,
-            Model model
-    ) {
-        Customer customer = customerService.findCustomerByIdAndState(customerId, Boolean.TRUE);
-        Cart cart = cartService.getOrCreateCart(customerId);
+
+    @GetMapping
+    public String showCheckoutForm(HttpSession session, Model model) {
+        UUID customerId = sessionService.getCurrentCustomerId(session);
+        if (customerId == null) {
+            return "redirect:/login";
+        }
+
+        var customer = customerService.findCustomerByIdAndState(customerId, Boolean.TRUE);
+        var cart = cartService.getOrCreateCart(customerId);
 
         model.addAttribute("customer", customer);
         model.addAttribute("cart", cart);
@@ -37,12 +41,20 @@ public class CheckoutController {
         return "order/checkout";
     }
 
-    @PostMapping("/{customerId}")
+    // Process the submitted checkout form
+    @PostMapping
     public String processCheckout(
-            @PathVariable UUID customerId,
             @ModelAttribute OrderRequest orderRequest,
-            Model model
+            HttpSession session
     ) {
+        UUID customerId = sessionService.getCurrentCustomerId(session);
+        if (customerId == null) {
+            return "redirect:/login";
+        }
+
+        // Set customerId in orderRequest if not already set
+        orderRequest.setCustomerId(customerId);
+
         Order order = orderService.createOrderFromCart(customerId, orderRequest);
         cartService.clearCart(customerId);
         return "redirect:/order/" + order.getId();

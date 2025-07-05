@@ -1,120 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product Catalog</title>
-    <!-- Bootstrap CSS & Icons -->
+    <title>Product Listing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        /* Your existing CSS here… */
-        .badge-available { background-color: #4caf50; }
-        .badge-out-stock { background-color: #f44336; }
-        .badge-damaged { background-color: #ff9800; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <!-- Navbar content -->
-</nav>
-
-<div class="container mt-4">
-    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
-    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-
-    <div class="section-card">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title">Product Catalog</h2>
-            <a th:href="@{/product/register}" class="btn btn-primary">
-                <i class="bi bi-plus-circle me-2"></i>Add New Product
-            </a>
-        </div>
-
-        <div class="search-section">
-            <!-- Search inputs -->
-        </div>
-
-        <!-- Product Grid -->
-        <div class="row" id="productGrid">
-            <div class="col-md-4 mb-4" th:each="prod : ${products}">
-                <div class="card product-card">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${prod.productName}">Product Name</h5>
-                        <p class="card-text text-muted" th:text="${prod.description}">Description</p>
-                        <!-- New Category Field -->
-                        <p class="card-text">
-                            <strong>Category:</strong>
-                            <span th:text="${prod.category?.name} ?: 'Uncategorized'">Uncategorized</span>
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-              <span class="fw-bold fs-4 text-primary"
-                    th:text="'$' + ${#numbers.formatDecimal(prod.price,1,2)}">$0.00</span>
-                            <span class="badge"
-                                  th:classappend="
-          ${prod.stockState == T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? ' badge-available' :
-          ${prod.stockState == T(rw.ac.auca.ecommerce.core.util.product.EStockState).OUT_STOCK} ? ' badge-out-stock' :
-          ' badge-damaged'">
-    <span th:text="${prod.stockState}">STATE</span>
-</span>
-
-                        </div>
-                        <div class="d-flex justify-content-between text-muted small">
-                            <div>
-                                <i class="bi bi-calendar me-1"></i>
-                                <span th:text="${#temporals.format(prod.manufacturedDate,'MMM yyyy')}">Jan 2025</span>
-                            </div>
-                            <div th:if="${prod.expirationDate}">
-                                <i class="bi bi-hourglass-split me-1"></i>
-                                <span th:text="${#temporals.format(prod.expirationDate,'MMM yyyy')}">Dec 2025</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-transparent d-flex justify-content-between">
-                        <button class="btn btn-sm btn-outline-primary add-to-cart-btn"
-                                th:disabled="${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE}"
-                                th:attr="data-id=${prod.id}, data-name=${prod.productName}, data-price=${prod.price}">
-                            <i class="bi bi-cart-plus me-1"></i>Add to Order
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Available Products</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="prod : ${products}">
+            <div class="card h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${prod.productName}">Product Name</h5>
+                    <p class="card-text">Price: <strong th:text="${prod.price}">0</strong> RWF</p>
+                    <p class="card-text">Stock:
+                        <span class="badge"
+                              th:text="${prod.stockState}"
+                              th:classappend="${prod.stockState == T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? 'bg-success' : 'bg-secondary'">
+                        </span>
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <!-- Add to Cart Form -->
+                    <form th:action="@{'/cart/add/' + ${prod.id}}" method="post">
+                        <input type="hidden" name="quantity" value="1"/>
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-primary"
+                                th:disabled="${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE}">
+                            <i class="bi bi-cart-plus me-1"></i>Cart
                         </button>
-                        <div>
-                            <a th:href="@{'/product/update?id=' + ${prod.id}}" class="btn btn-sm btn-outline-secondary me-1">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <form class="d-inline" th:action="@{/product/delete}" method="post">
-                                <input type="hidden" name="id" th:value="${prod.id}">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+                    </form>
+
+                    <!-- Make Order Button -->
+                    <a th:href="@{'/order/make/' + ${prod.id}}"
+                       class="btn btn-sm btn-outline-success"
+                       th:classappend="${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? ' disabled'">
+                        <i class="bi bi-bag-plus me-1"></i>Order
+                    </a>
                 </div>
             </div>
         </div>
-
-        <div class="text-center py-5" th:if="${#lists.isEmpty(products)}" id="emptyState">
-
-        <i class="bi bi-box-seam display-1 text-muted mb-3"></i>
-            <h3 class="text-muted">No Products Found</h3>
-            <p class="text-muted">Try adjusting your search filters or adding a new product</p>
-            <a th:href="@{/product/register}" class="btn btn-primary mt-3">
-                <i class="bi bi-plus-circle me-2"></i>Add New Product
-            </a>
-        </div>
     </div>
 </div>
-<!-- In combinedView.html -->
-<tr th:each="prod : ${products}">
-    <!-- ... existing columns ... -->
-    <td>
-        <form th:action="@{'/cart/add/' + ${prod.id}}" method="post">
-            <input type="hidden" name="customerId" th:value="${currentCustomerId}">
-            <input type="number" name="quantity" value="1" min="1">
-            <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
-        </form>
-    </td>
-</tr>
-
-<!-- Cart and Customer Modals + JS unchanged -->
-
 </body>
 </html>

@@ -14,17 +14,28 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/product")
 public class ProductController {
-    private final IProductService productService;
-    private final IProductCategoryService categoryService; // make sure this is injected
 
-    @GetMapping({"", "/", "/search/all"})
-    public String getAllProducts(Model model) {
-        model.addAttribute("products", productService.findProductsByState(true));
-        return "combinedView";
+    private final IProductService productService;
+    private final IProductCategoryService categoryService;
+
+    @GetMapping("/search/all")
+    public String searchAllProducts(Model model) {
+        List<Product> products = productService.findProductsByState(true);
+        model.addAttribute("products", products);
+        model.addAttribute("stockStates", EStockState.values());
+        model.addAttribute("categories", categoryService.getActiveCategories(true));
+        return "product/productList";
+    }
+
+    @GetMapping("/browse")
+    public String browseProducts(Model model) {
+        List<Product> products = productService.findProductsByState(true);
+        model.addAttribute("products", products);
+        return "product/browse";
     }
 
     @GetMapping("/register")
@@ -64,7 +75,7 @@ public class ProductController {
         if (Objects.nonNull(theProduct)) {
             productService.updateProduct(theProduct);
         }
-        return "redirect:/product/search/all";
+        return "redirect:/product/browse";
     }
 
     @PostMapping("/delete")
@@ -74,7 +85,7 @@ public class ProductController {
             theProduct.setId(UUID.fromString(id));
             productService.deleteProduct(theProduct);
         }
-        return "redirect:/product/";
+        return "redirect:/product/browse";
     }
 
     @GetMapping("/search")
