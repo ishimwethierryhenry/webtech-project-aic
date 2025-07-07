@@ -1,113 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Create Order</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        .order-form {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .order-summary {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Place Order</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container mt-5">
+    <h2 class="mb-4">Place Your Order</h2>
 
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="order-form">
-                <h2 class="text-center mb-4">Create New Order</h2>
+    <form th:action="@{/order/submit}" method="post">
 
-                <form th:action="@{/order/create}" th:object="${order}" method="post">
-                    <!-- Remove customer selection - customer is from session -->
-
-                    <!-- Shipping Address -->
-                    <div class="mb-3">
-                        <label class="form-label">Shipping Address</label>
-                        <textarea class="form-control" th:field="*{shippingAddress}" rows="3" required></textarea>
-                    </div>
-
-                    <!-- Order Items -->
-                    <h4 class="mt-4">Order Items</h4>
-                    <div class="mb-3">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th><!-- Action --></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="item, itemStat : *{items}">
-                                <td>
-                                    <select class="form-select"
-                                            th:field="*{items[__${itemStat.index}__].product.id}"
-                                            required>
-                                        <option value="">Select Product</option>
-                                        <option th:each="prod : ${products}"
-                                                th:value="${prod.id}"
-                                                th:text="${prod.productName + ' ($' + #numbers.formatDecimal(prod.price, 1, 2) + ')'}">
-                                        </option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <span th:if="${item.product != null}"
-                                          th:text="'$' + ${#numbers.formatDecimal(item.product.price, 1, 2)}"></span>
-                                    <span th:if="${item.product == null}">$0.00</span>
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control"
-                                           th:field="*{items[__${itemStat.index}__].quantity}"
-                                           min="1" required />
-                                </td>
-                                <td>
-                                    <span th:if="${item.product != null}"
-                                          th:text="'$' + ${#numbers.formatDecimal(item.product.price * item.quantity, 1, 2)}"></span>
-                                    <span th:if="${item.product == null}">$0.00</span>
-                                </td>
-                                <td>
-                                    <!-- Optionally add remove button, requires backend support -->
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- Add Item button -->
-                        <button type="submit" formaction="#"
-                                onclick="this.form.action='/order/add-item'; this.form.method='post';"
-                                class="btn btn-secondary">
-                            Add Item
-                        </button>
-                    </div>
-
-                    <!-- Notes -->
-                    <div class="mb-3">
-                        <label class="form-label">Order Notes</label>
-                        <textarea class="form-control" th:field="*{notes}" rows="2"></textarea>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Place Order</button>
-                    </div>
-                </form>
-            </div>
+        <!-- Product Selection Dropdown -->
+        <div class="mb-3">
+            <label class="form-label">Select Product</label>
+            <select class="form-select" name="productId" required>
+                <option value="" disabled selected>-- Choose a product --</option>
+                <option th:each="prod : ${products}"
+                        th:value="${prod.id}"
+                        th:text="${prod.productName + ' - ' + #numbers.formatDecimal(prod.price, 0, 2) + ' RWF'}">
+                </option>
+            </select>
         </div>
-    </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Quantity -->
+        <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" class="form-control" name="quantity" min="1" value="1" required />
+        </div>
+
+        <!-- Shipping Address -->
+        <div class="mb-3">
+            <label class="form-label">Shipping Address</label>
+            <input type="text" class="form-control" name="shippingAddress" required />
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-control" name="phoneNumber" required />
+        </div>
+
+        <button type="submit" class="btn btn-success">Place Order</button>
+    </form>
+</div>
 </body>
 </html>

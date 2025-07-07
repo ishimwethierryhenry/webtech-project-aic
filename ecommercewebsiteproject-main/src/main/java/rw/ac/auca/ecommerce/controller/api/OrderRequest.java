@@ -9,9 +9,11 @@ import java.util.UUID;
 // OrderRequest.java
 @Data
 public class OrderRequest {
-    private UUID customerId;
+//    private UUID customerId;
     private String shippingAddress;
     private List<OrderItemRequest> items;
+    private String phoneNumber;
+
 
 
     @Data

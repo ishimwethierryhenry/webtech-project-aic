@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Product List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .product-card {
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-            height: 100%;
-        }
-
-        .product-image {
-            max-height: 180px;
-            object-fit: contain;
-            margin-bottom: 15px;
-        }
-
-        .product-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
 <div th:insert="fragments/navbar :: navbar"></div>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Our Products</h1>
+    <h1>Your Cart</h1>
 
-    <div class="row">
-        <div class="col-md-4 mb-4" th:each="product : ${products}">
-            <div class="product-card h-100 d-flex flex-column justify-content-between">
-                <img th:src="${product.imageUrl}" alt="Product Image" class="img-fluid product-image">
-                <div class="product-name" th:text="${product.productName}"></div>
-                <p class="text-muted mb-1" th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}"></p>
 
-                <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
-                    <div class="input-group mb-2">
-                        <input type="number" name="quantity" value="1" min="1" class="form-control" required>
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                    </div>
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+
+    <th:block th:if="${#lists.isEmpty(cart.items)}">
+        <p>Your cart is empty.</p>
+        <a th:href="@{/products}" class="btn btn-primary">Continue Shopping</a>
+    </th:block>
+
+    <!-- Show cart items if not empty -->
+    <table class="table" th:if="${not #lists.isEmpty(cart.items)}">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price per unit</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cart.items}">
+            <td th:text="${item.product.productName}"></td>
+            <td>
+                <form th:action="@{'/cart/update/' + ${item.id}}" method="post" class="d-inline-flex">
+                    <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="form-control me-2" style="width: 80px;" required />
+                    <button type="submit" class="btn btn-sm btn-primary">Update</button>
                 </form>
-            </div>
-        </div>
-    </div>
-    <form th:action="@{/cart/checkout}" method="post">
-        <label>Shipping Address:</label>
-        <input type="text" name="shippingAddress" required>
-        <button type="submit" class="btn btn-success">Checkout</button>
-    </form>
+            </td>
+            <td th:text="${'$' + #numbers.formatDecimal(item.product.price, 1, 2)}"></td>
+            <td th:text="${'$' + #numbers.formatDecimal(item.product.price * item.quantity, 1, 2)}"></td>
+            <td>
+                <form th:action="@{'/cart/remove/' + ${item.id}}" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-
-    <div class="text-center mt-4">
-        <a th:href="@{/cart}" class="btn btn-outline-success">View Cart</a>
+    <div th:if="${not #lists.isEmpty(cart.items)}" class="text-end mt-3">
+        <h4>Total: <span th:text="${'$' + #numbers.formatDecimal(cart.totalAmount, 1, 2)}"></span></h4>
+        <a th:href="@{/order/checkout}" class="btn btn-success btn-lg">Proceed to Checkout</a>
     </div>
 </div>
 

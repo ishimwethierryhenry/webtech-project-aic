@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Product Listing</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 </head>
 <body>
 <div class="container mt-5">
+
+    <!-- Success message alert -->
+    <div th:if="${successMessage}" class="alert alert-success" role="alert" th:text="${successMessage}"></div>
+
     <h2 class="mb-4 text-center">Available Products</h2>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" th:each="prod : ${products}">
             <div class="card h-100 shadow">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${prod.productName}">Product Name</h5>
-                    <p class="card-text">Price: <strong th:text="${prod.price}">0</strong> RWF</p>
-                    <p class="card-text">Stock:
+                    <p class="card-text">
+                        Price: <strong th:text="${#numbers.formatDecimal(prod.price, 0, 2)}">0.00</strong> RWF
+                    </p>
+                    <p class="card-text">
+                        Stock:
                         <span class="badge"
                               th:text="${prod.stockState}"
-                              th:classappend="${prod.stockState == T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? 'bg-success' : 'bg-secondary'">
+                              th:classappend="${prod.stockState == T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? ' bg-success' : ' bg-secondary'">
                         </span>
                     </p>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
+
                     <!-- Add to Cart Form -->
-                    <form th:action="@{'/cart/add/' + ${prod.id}}" method="post">
-                        <input type="hidden" name="quantity" value="1"/>
+                    <form th:action="@{'/cart/add/' + ${prod.id}}" method="post" class="m-0 p-0">
+                        <input type="hidden" name="quantity" value="1" />
                         <button type="submit"
                                 class="btn btn-sm btn-outline-primary"
                                 th:disabled="${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE}">
-                            <i class="bi bi-cart-plus me-1"></i>Cart
+                            <i class="bi bi-cart-plus me-1"></i> Add to Cart
                         </button>
                     </form>
 
-                    <!-- Make Order Button -->
-                    <a th:href="@{'/order/make/' + ${prod.id}}"
+                    <!-- Make Order Button - corrected here -->
+                    <a th:href="@{/order/create}"
                        class="btn btn-sm btn-outline-success"
-                       th:classappend="${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? ' disabled'">
-                        <i class="bi bi-bag-plus me-1"></i>Order
+                       th:classappend="${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE} ? ' disabled' : ''"
+                       th:attr="aria-disabled=${prod.stockState != T(rw.ac.auca.ecommerce.core.util.product.EStockState).AVAILABLE}">
+                        <i class="bi bi-bag-plus me-1"></i> Order
                     </a>
+
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

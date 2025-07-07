@@ -53,7 +53,8 @@ public class CheckoutController {
         }
 
         // Set customerId in orderRequest if not already set
-        orderRequest.setCustomerId(customerId);
+
+
 
         Order order = orderService.createOrderFromCart(customerId, orderRequest);
         cartService.clearCart(customerId);

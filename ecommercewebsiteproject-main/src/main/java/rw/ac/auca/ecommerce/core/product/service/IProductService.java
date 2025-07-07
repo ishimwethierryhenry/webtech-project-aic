@@ -22,4 +22,7 @@ public interface IProductService {
     List<Product> findProductsByStockStatesAndState(List<EStockState> stockStates , Boolean active);
     List<Product> findByProductNameContainingAndState(String name, Boolean active);
     List<Product> findByPriceBetweenAndState(Double minPrice, Double maxPrice, Boolean active);
+    List<Product> getAllProducts();
+    List<Product> findAll();
+
 }

@@ -19,8 +19,10 @@ public interface IOrderService {
     void deleteOrder(UUID orderId);
     Order createOrder(OrderRequest request);
     Order createOrderFromCart(UUID customerId, OrderRequest orderRequest);
+    Order save(Order order);
     @Transactional
     Order createOrder(rw.ac.auca.ecommerce.core.order.rest.dto.OrderRequest request);
+    List<Order> findAll();
 
     @Transactional
     Order createOrderFromCart(UUID customerId, rw.ac.auca.ecommerce.core.order.rest.dto.OrderRequest orderRequest);

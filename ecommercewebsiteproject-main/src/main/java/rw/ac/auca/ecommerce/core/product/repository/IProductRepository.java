@@ -1,5 +1,6 @@
 package rw.ac.auca.ecommerce.core.product.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import rw.ac.auca.ecommerce.core.product.model.Product;
@@ -23,6 +24,8 @@ public interface IProductRepository extends JpaRepository<Product , UUID> {
     List<Product> findALlByStockStateInAndActive(List<EStockState> states , Boolean active);
     List<Product> findByProductNameContainingIgnoreCaseAndActive(String name, Boolean active);
     List<Product> findByPriceBetweenAndActive(Double minPrice, Double maxPrice, Boolean active);
+
+
 
 
 }

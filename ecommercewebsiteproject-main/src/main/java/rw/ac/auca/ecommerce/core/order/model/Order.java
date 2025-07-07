@@ -14,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Table(name = "orders")
 public class Order extends AbstractBaseEntity {
 
     @ManyToOne
@@ -36,10 +37,14 @@ public class Order extends AbstractBaseEntity {
     @Column
     private String notes;
     @Column
-    private String phoneNumber; // ✅ Add this line
+    private String phoneNumber;
 
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items;
+    public void addItem(OrderItem item) {
+        items.add(item);
+        item.setOrder(this);
+    }
 
 }

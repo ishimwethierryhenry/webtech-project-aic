@@ -83,4 +83,13 @@ public class ProductServiceImpl implements IProductService{
     public List<Product> findProductsByStockStatesAndState(List<EStockState> stockStates, Boolean active) {
         return productRepository.findALlByStockStateInAndActive(stockStates,active);
     }
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll(); // or your repo method
+    }
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll(); // assuming you have a repository
+    }
+
 }
