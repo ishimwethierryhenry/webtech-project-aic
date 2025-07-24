@@ -59,6 +59,11 @@ public class ProductServiceImpl implements IProductService{
     public List<Product> findByPriceBetweenAndState(Double minPrice, Double maxPrice, Boolean active) {
         return productRepository.findByPriceBetweenAndActive(minPrice, maxPrice, active);
     }
+    @Override
+    public List<Product> searchByNameOrCategory(String query) {
+        return productRepository.findByProductNameContainingIgnoreCaseOrCategory_NameContainingIgnoreCase(query, query);
+    }
+
 
 
 

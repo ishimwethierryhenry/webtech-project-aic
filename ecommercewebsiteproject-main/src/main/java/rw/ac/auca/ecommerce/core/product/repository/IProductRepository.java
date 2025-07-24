@@ -24,6 +24,8 @@ public interface IProductRepository extends JpaRepository<Product , UUID> {
     List<Product> findALlByStockStateInAndActive(List<EStockState> states , Boolean active);
     List<Product> findByProductNameContainingIgnoreCaseAndActive(String name, Boolean active);
     List<Product> findByPriceBetweenAndActive(Double minPrice, Double maxPrice, Boolean active);
+    List<Product> findByProductNameContainingIgnoreCaseOrCategory_NameContainingIgnoreCase(String name, String categoryName);
+
 
 
 

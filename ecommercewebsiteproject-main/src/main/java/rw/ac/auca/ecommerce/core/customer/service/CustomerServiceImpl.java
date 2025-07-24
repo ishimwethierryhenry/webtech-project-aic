@@ -77,3 +77,4 @@ public class CustomerServiceImpl implements ICustomerService{
         return customerRepository.findAllByActive(state);
     }
 }
+

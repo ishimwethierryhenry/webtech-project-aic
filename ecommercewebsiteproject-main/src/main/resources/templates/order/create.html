@@ -1,24 +1,85 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Place Order</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--    <h2 class="mb-4">Place Your Order</h2>-->
+
+<!--    <form th:action="@{/order/submit}" method="post">-->
+
+<!--        &lt;!&ndash; Product Selection Dropdown &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Select Product</label>-->
+<!--            <select class="form-select" name="productId" required>-->
+<!--                <option value="" disabled selected>&#45;&#45; Choose a product &#45;&#45;</option>-->
+<!--                <option th:each="prod : ${products}"-->
+<!--                        th:value="${prod.id}"-->
+<!--                        th:text="${prod.productName + ' - ' + #numbers.formatDecimal(prod.price, 0, 2) + ' RWF'}">-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Quantity &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Quantity</label>-->
+<!--            <input type="number" class="form-control" name="quantity" min="1" value="1" required />-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Shipping Address &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Shipping Address</label>-->
+<!--            <input type="text" class="form-control" name="shippingAddress" required />-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Phone Number &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Phone Number</label>-->
+<!--            <input type="text" class="form-control" name="phoneNumber" required />-->
+<!--        </div>-->
+
+<!--        <button type="submit" class="btn btn-success">Place Order</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Place Order</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 </head>
 <body>
 <div class="container mt-5">
     <h2 class="mb-4">Place Your Order</h2>
 
-    <form th:action="@{/order/submit}" method="post">
+    <!--
+        Bind form to "order" object in model.
+        Submit to /order/save POST method (update controller accordingly).
+    -->
+    <form th:action="@{/order/save}" th:object="${order}" method="post">
 
-        <!-- Product Selection Dropdown -->
+        <!-- Hidden product id -->
+        <input type="hidden" th:field="*{items[0].product.id}" />
+
+        <!-- Display product name readonly -->
         <div class="mb-3">
-            <label class="form-label">Select Product</label>
-            <select class="form-select" name="productId" required>
-                <option value="" disabled selected>-- Choose a product --</option>
-                <option th:each="prod : ${products}"
-                        th:value="${prod.id}"
-                        th:text="${prod.productName + ' - ' + #numbers.formatDecimal(prod.price, 0, 2) + ' RWF'}">
+            <label class="form-label">Product</label>
+            <input type="text" class="form-control" th:value="${product.productName}" readonly />
+        </div>
+
+        <!-- Customer select dropdown -->
+        <div class="mb-3">
+            <label class="form-label">Customer</label>
+            <select class="form-select" th:field="*{customer.id}" required>
+                <option value="" disabled selected>-- Select Customer --</option>
+                <option th:each="cust : ${customers}"
+                        th:value="${cust.id}"
+                        th:text="${cust.firstName + ' ' + cust.lastName}">
                 </option>
             </select>
         </div>
@@ -26,19 +87,20 @@
         <!-- Quantity -->
         <div class="mb-3">
             <label class="form-label">Quantity</label>
-            <input type="number" class="form-control" name="quantity" min="1" value="1" required />
+            <!-- Bind quantity to the first order item's quantity -->
+            <input type="number" class="form-control" th:field="*{items[0].quantity}" min="1" value="1" required />
         </div>
 
         <!-- Shipping Address -->
         <div class="mb-3">
             <label class="form-label">Shipping Address</label>
-            <input type="text" class="form-control" name="shippingAddress" required />
+            <input type="text" class="form-control" th:field="*{shippingAddress}" required />
         </div>
 
         <!-- Phone Number -->
         <div class="mb-3">
             <label class="form-label">Phone Number</label>
-            <input type="text" class="form-control" name="phoneNumber" required />
+            <input type="text" class="form-control" th:field="*{phoneNumber}" required />
         </div>
 
         <button type="submit" class="btn btn-success">Place Order</button>

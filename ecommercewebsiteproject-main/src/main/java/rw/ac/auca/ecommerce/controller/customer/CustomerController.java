@@ -40,9 +40,9 @@ public class CustomerController {
     public String registerCustomer(@ModelAttribute("customer") Customer theCustomer, Model model) {
         if (Objects.nonNull(theCustomer)) {
             customerService.registerCustomer(theCustomer);
-            model.addAttribute("message", "Data Saved Successfully");
+            model.addAttribute("success", "Customer registered successfully!");
         } else {
-            model.addAttribute("error", "Data Not Saved");
+            model.addAttribute("error", "Customer Not Saved");
         }
         return "customer/customerRegistrationPage";
     }
@@ -56,6 +56,7 @@ public class CustomerController {
         }
         return "redirect:/customer/search/all";
     }
+
 
 
     @GetMapping("/update/{id}")
@@ -73,11 +74,16 @@ public class CustomerController {
     // Handle POST update submission
     @PostMapping("/updateCustomer")
     public String updateCustomer(@ModelAttribute("customer") Customer theCustomer, Model model) {
-        if (Objects.nonNull(theCustomer)) {
+        if (theCustomer != null && theCustomer.getId() != null) {
             customerService.updateCustomer(theCustomer);
+            model.addAttribute("message", "Customer updated successfully!");
+            return "redirect:/customer/search/all";
+        } else {
+            model.addAttribute("error", "Update failed. Missing customer data.");
+            return "customer/customerUpdatePage";
         }
-        return "redirect:/customer/search/all";
     }
+
 
     // Dashboard for first active customer (optional, you can update similarly)
     @GetMapping("/account")

@@ -1,61 +1,235 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en" xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Product Registration</title>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>Page Navigation</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:href="@{/product/register}"> Register Product</a> <br/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:href="@{/product/search/all}"> Product List</a> <br/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:href="@{/customer/search/all}"> Customer List</a> <br/>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <span th:if="${message != null}" th:text="${message}" style="color: green"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;    <span th:if="${error != null}" th:text="${error}" style="color: red"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h1>Product Registration Page</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;<div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <form th:action="@{/product/register}" th:object="${product}" method="post">&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <label>Product Name: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="text" th:field="*{productName}" required> <br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <label>Description: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;        <textarea th:field="*{description}" required></textarea><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <label>Price: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="number" step="0.01" th:field="*{price}" required><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <label>Manufactured Date: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="date" th:field="*{manufacturedDate}" required><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <label>Expiration Date (Optional): </label>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="date" th:field="*{expirationDate}"><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <label>Stock State: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;        <select th:field="*{stockState}" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <option th:each="state : ${stockStates}"&ndash;&gt;-->
+<!--&lt;!&ndash;                    th:value="${state}"&ndash;&gt;-->
+<!--&lt;!&ndash;                    th:text="${state}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;        </select><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Category Selection &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label class="form-label">Category</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select class="form-select" th:field="*{category}" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="">Select Category</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option th:each="cat : ${categories}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:value="${cat.id}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:text="${cat.name}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <button type="submit">Register</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Product Registration</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div>-->
+<!--    <h1>Page Navigation</h1>-->
+<!--    <a th:href="@{/product/register}"> Register Product</a> <br/>-->
+<!--    <a th:href="@{/product/search/all}"> Product List</a> <br/>-->
+<!--    <a th:href="@{/customer/search/all}"> Customer List</a> <br/>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    <span th:if="${message != null}" th:text="${message}" style="color: green"></span>-->
+<!--    <span th:if="${error != null}" th:text="${error}" style="color: red"></span>-->
+<!--</div>-->
+
+<!--<h1>Product Registration Page</h1>-->
+<!--<div>-->
+<!--    <form th:action="@{/product/register}" th:object="${product}" method="post">-->
+
+<!--        <label>Product Name: </label>-->
+<!--        <input type="text" th:field="*{productName}" required> <br/>-->
+
+<!--        <label>Description: </label>-->
+<!--        <textarea th:field="*{description}" required></textarea><br/>-->
+
+<!--        <label>Price: </label>-->
+<!--        <input type="number" step="0.01" th:field="*{price}" required><br/>-->
+
+<!--        <label>Manufactured Date: </label>-->
+<!--        <input type="date" th:field="*{manufacturedDate}" required><br/>-->
+
+<!--        <label>Expiration Date (Optional): </label>-->
+<!--        <input type="date" th:field="*{expirationDate}"><br/>-->
+
+<!--        <label>Stock State: </label>-->
+<!--        <select th:field="*{stockState}" required>-->
+<!--            <option th:each="state : ${stockStates}"-->
+<!--                    th:value="${state}"-->
+<!--                    th:text="${state}"></option>-->
+<!--        </select><br/>-->
+
+<!--        &lt;!&ndash; Category Manual Input &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Category</label>-->
+<!--            <input type="text" th:field="*{category.name}" class="form-control" placeholder="Enter Category Name" required />-->
+<!--        </div><br/>-->
+
+<!--        <button type="submit">Register</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product Registration</title>
+    <title>🌟 Product Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
-<body>
-<div>
-    <h1>Page Navigation</h1>
-    <a th:href="@{/product/register}"> Register Product</a> <br/>
-    <a th:href="@{/product/search/all}"> Product List</a> <br/>
-    <a th:href="@{/customer/search/all}"> Customer List</a> <br/>
+<body class="bg-gradient-to-br from-indigo-200 via-white to-pink-200 min-h-screen flex flex-col items-center justify-center px-4 py-10">
+
+<!-- Navbar or Top Navigation -->
+<nav class="mb-10 w-full max-w-3xl bg-white/60 shadow-md rounded-xl p-4 backdrop-blur">
+    <h1 class="text-2xl font-bold text-gray-700 mb-2">🌐 Page Navigation</h1>
+    <div class="flex gap-4 text-blue-600 font-medium">
+        <a th:href="@{/product/register}" class="hover:underline">📦 Register Product</a>
+        <a th:href="@{/product/search/all}" class="hover:underline">📋 Product List</a>
+        <a th:href="@{/customer/search/all}" class="hover:underline">👥 Customer List</a>
+    </div>
+</nav>
+
+<!-- Flash Messages -->
+<div class="w-full max-w-xl mb-6">
+    <div th:if="${message}" class="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-lg shadow">
+        ✅ <span th:text="${message}"></span>
+    </div>
+    <div th:if="${error}" class="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg shadow mt-2">
+        ❌ <span th:text="${error}"></span>
+    </div>
 </div>
 
-<div>
-    <span th:if="${message != null}" th:text="${message}" style="color: green"></span>
-    <span th:if="${error != null}" th:text="${error}" style="color: red"></span>
-</div>
+<!-- Registration Form -->
+<div class="w-full max-w-xl bg-white/70 shadow-lg rounded-2xl p-8 backdrop-blur-md animate-fade-in">
+    <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-6">🛒 Product Registration</h2>
+    <form th:action="@{/product/register}" th:object="${product}" method="post" class="space-y-6">
 
-<h1>Product Registration Page</h1>
-<div>
-    <form th:action="@{/product/register}" th:object="${product}" method="post">
+        <!-- Product Name -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Product Name</label>
+            <div class="relative">
+                <i class="fa fa-box absolute left-3 top-3.5 text-gray-400"></i>
+                <input type="text" th:field="*{productName}" required
+                       class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"/>
+            </div>
+        </div>
 
-        <label>Product Name: </label>
-        <input type="text" th:field="*{productName}" required> <br/>
+        <!-- Description -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Description</label>
+            <textarea th:field="*{description}" required rows="3"
+                      class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition resize-none"></textarea>
+        </div>
 
-        <label>Description: </label>
-        <textarea th:field="*{description}" required></textarea><br/>
+        <!-- Price -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Price</label>
+            <div class="relative">
+                <i class="fa fa-dollar-sign absolute left-3 top-3.5 text-gray-400"></i>
+                <input type="number" step="0.01" th:field="*{price}" required
+                       class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"/>
+            </div>
+        </div>
 
-        <label>Price: </label>
-        <input type="number" step="0.01" th:field="*{price}" required><br/>
+        <!-- Manufactured Date -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Manufactured Date</label>
+            <input type="date" th:field="*{manufacturedDate}" required
+                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"/>
+        </div>
 
-        <label>Manufactured Date: </label>
-        <input type="date" th:field="*{manufacturedDate}" required><br/>
+        <!-- Expiration Date -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Expiration Date (Optional)</label>
+            <input type="date" th:field="*{expirationDate}"
+                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition"/>
+        </div>
 
-        <label>Expiration Date (Optional): </label>
-        <input type="date" th:field="*{expirationDate}"><br/>
-
-        <label>Stock State: </label>
-        <select th:field="*{stockState}" required>
-            <option th:each="state : ${stockStates}"
-                    th:value="${state}"
-                    th:text="${state}"></option>
-        </select><br/>
-
-        <!-- Category Selection -->
-        <div class="mb-3">
-            <label class="form-label">Category</label>
-            <select class="form-select" th:field="*{category}" required>
-                <option value="">Select Category</option>
-                <option th:each="cat : ${categories}"
-                        th:value="${cat.id}"
-                        th:text="${cat.name}"></option>
+        <!-- Stock State -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Stock State</label>
+            <select th:field="*{stockState}" required
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition">
+                <option th:each="state : ${stockStates}" th:value="${state}" th:text="${state}"></option>
             </select>
-        </div><br/>
+        </div>
 
-        <button type="submit">Register</button>
+        <!-- Category -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Category</label>
+            <input type="text" th:field="*{category.name}" required
+                   placeholder="Enter category name"
+                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition"/>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="submit"
+                    class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-lg font-semibold hover:from-indigo-600 hover:to-purple-600 transition shadow-lg">
+                🚀 Register Product
+            </button>
+        </div>
     </form>
 </div>
+
+<!-- Animation -->
+<style>
+    @keyframes fade-in {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.8s ease-out;
+    }
+</style>
 </body>
 </html>

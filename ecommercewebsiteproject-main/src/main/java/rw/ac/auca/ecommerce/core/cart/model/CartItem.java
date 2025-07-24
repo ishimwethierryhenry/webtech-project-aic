@@ -9,6 +9,8 @@ import lombok.Setter;
 import rw.ac.auca.ecommerce.core.base.AbstractBaseEntity;
 import rw.ac.auca.ecommerce.core.product.model.Product;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -23,4 +25,12 @@ public class CartItem extends AbstractBaseEntity {
 
     @Column(nullable = false)
     private Integer quantity;
+
+    @Column(name = "unit_price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal unitPrice;
+
+
+    public BigDecimal getTotalPrice() {
+        return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
 }

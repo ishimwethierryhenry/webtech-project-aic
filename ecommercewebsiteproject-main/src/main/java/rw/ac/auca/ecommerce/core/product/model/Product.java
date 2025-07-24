@@ -42,4 +42,7 @@ public class Product extends AbstractBaseEntity {
     @Column(name = "stock_state" , nullable = false)
     @Enumerated(EnumType.STRING)
     private EStockState stockState;
+
+
+
 }

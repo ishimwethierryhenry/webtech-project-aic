@@ -1,134 +1,271 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>E-Commerce System</title>-->
+<!--    <style>-->
+<!--        /* Common Styles */-->
+<!--        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }-->
+<!--        .navbar { background: #f0f0f0; padding: 10px; margin-bottom: 20px; }-->
+<!--        .navbar a { margin-right: 15px; text-decoration: none; color: #333; }-->
+<!--        .navbar a:hover { text-decoration: underline; }-->
+<!--        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }-->
+<!--        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }-->
+<!--        th { background-color: #f2f2f2; }-->
+<!--        .section { margin-bottom: 30px; }-->
+<!--        .action-form { display: inline-block; margin-right: 5px; }-->
+<!--        .message { color: green; margin: 10px 0; }-->
+<!--        .error { color: red; margin: 10px 0; }-->
+<!--        .btn {-->
+<!--            padding: 5px 10px;-->
+<!--            background: #4CAF50;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 3px;-->
+<!--            cursor: pointer;-->
+<!--            text-decoration: none;-->
+<!--            display: inline-block;-->
+<!--        }-->
+<!--        .btn:hover { background: #45a049; }-->
+<!--        .btn-delete { background: #f44336; }-->
+<!--        .btn-delete:hover { background: #d32f2f; }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Common Navigation Bar &ndash;&gt;-->
+<!--<div class="navbar">-->
+<!--    <a th:href="@{/customer/register}">Register Customer</a>-->
+<!--    <a th:href="@{/customer/search/all}">Customer List</a>-->
+<!--    <a th:href="@{/product/register}">Register Product</a>-->
+<!--    <a th:href="@{/product/search/all}">Product List</a>-->
+<!--    <a th:href="@{/dashboard}">Dashboard (Both)</a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Messages Section &ndash;&gt;-->
+<!--<div th:if="${message}" class="message" th:text="${message}"></div>-->
+<!--<div th:if="${error}" class="error" th:text="${error}"></div>-->
+
+<!--&lt;!&ndash; Customer List Section &ndash;&gt;-->
+<!--<div class="section" th:if="${customers}">-->
+<!--    <h1>Customer List</h1>-->
+<!--    <div>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>First Name</th>-->
+<!--                <th>Last Name</th>-->
+<!--                <th>Email</th>-->
+<!--                <th>Phone Number</th>-->
+<!--                <th>Actions</th>-->
+<!--                &lt;!&ndash; New column for View Products &ndash;&gt;-->
+<!--                <th>Browse</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="cust : ${customers}">-->
+<!--                <td th:text="${cust.firstName}"></td>-->
+<!--                <td th:text="${cust.lastName}"></td>-->
+<!--                <td th:text="${cust.email}"></td>-->
+<!--                <td th:text="${cust.phoneNumber}"></td>-->
+<!--                <td>-->
+<!--                    <form class="action-form" th:action="@{/customer/delete}" method="post">-->
+<!--                        <input type="hidden" name="id" th:value="${cust.id}">-->
+<!--                        <button type="submit" class="btn btn-delete">Delete</button>-->
+<!--                    </form>-->
+<!--                    <form class="action-form" th:action="@{/customer/update}" method="post">-->
+<!--                        <input type="hidden" name="id" th:value="${cust.id}">-->
+<!--                        <button type="submit" class="btn">Update</button>-->
+<!--                    </form>-->
+<!--                </td>-->
+<!--                &lt;!&ndash; New Browse Products cell &ndash;&gt;-->
+<!--                <td>-->
+<!--                    <a th:href="@{/dashboard}" class="btn">View Products</a>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Product List Section &ndash;&gt;-->
+<!--<div class="section" th:if="${products}">-->
+<!--    <h1>Product List</h1>-->
+<!--    <div>-->
+<!--        <a th:href="@{/product/register}" class="btn">Add New Product</a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Product Name</th>-->
+<!--                <th>Description</th>-->
+<!--                <th>Price</th>-->
+<!--                <th>Manufactured Date</th>-->
+<!--                <th>Expiration Date</th>-->
+<!--                <th>Stock State</th>-->
+<!--                <th>Actions</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="prod : ${products}">-->
+<!--                <td th:text="${prod.productName}"></td>-->
+<!--                <td th:text="${prod.description}"></td>-->
+<!--                <td th:text="${'$' + #numbers.formatDecimal(prod.price, 1, 2)}"></td>-->
+<!--                <td th:text="${#temporals.format(prod.manufacturedDate, 'yyyy-MM-dd')}"></td>-->
+<!--                <td th:text="${prod.expirationDate != null} ?-->
+<!--                    ${#temporals.format(prod.expirationDate, 'yyyy-MM-dd')} : 'N/A'"></td>-->
+<!--                <td th:text="${prod.stockState}"></td>-->
+<!--                <td>-->
+<!--                    <form class="action-form" th:action="@{/product/delete}" method="post">-->
+<!--                        <input type="hidden" name="id" th:value="${prod.id}">-->
+<!--                        <button type="submit" class="btn btn-delete">Delete</button>-->
+<!--                    </form>-->
+<!--                    <form class="action-form" th:action="@{/product/update}" method="post">-->
+<!--                        <input type="hidden" name="id" th:value="${prod.id}">-->
+<!--                        <button type="submit" class="btn">Update</button>-->
+<!--                    </form>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>E-Commerce System</title>
-    <style>
-        /* Common Styles */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-        .navbar { background: #f0f0f0; padding: 10px; margin-bottom: 20px; }
-        .navbar a { margin-right: 15px; text-decoration: none; color: #333; }
-        .navbar a:hover { text-decoration: underline; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .section { margin-bottom: 30px; }
-        .action-form { display: inline-block; margin-right: 5px; }
-        .message { color: green; margin: 10px 0; }
-        .error { color: red; margin: 10px 0; }
-        .btn {
-            padding: 5px 10px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:hover { background: #45a049; }
-        .btn-delete { background: #f44336; }
-        .btn-delete:hover { background: #d32f2f; }
-    </style>
+    <title>E-Commerce Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
-<body>
-<!-- Common Navigation Bar -->
-<div class="navbar">
-    <a th:href="@{/customer/register}">Register Customer</a>
-    <a th:href="@{/customer/search/all}">Customer List</a>
-    <a th:href="@{/product/register}">Register Product</a>
-    <a th:href="@{/product/search/all}">Product List</a>
-    <a th:href="@{/dashboard}">Dashboard (Both)</a>
+<body class="bg-gradient-to-br from-blue-100 via-white to-purple-100 min-h-screen p-4 font-sans">
+
+<!-- Navigation -->
+<nav class="bg-white/80 backdrop-blur shadow-md rounded-lg px-6 py-4 mb-8 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-800">🛍️ E-Commerce System</h1>
+    <div class="space-x-4 text-sm">
+        <a th:href="@{/customer/register}" class="text-blue-600 hover:underline">👤 Register Customer</a>
+        <a th:href="@{/customer/search/all}" class="text-blue-600 hover:underline">📃 Customer List</a>
+        <a th:href="@{/product/register}" class="text-blue-600 hover:underline">📦 Register Product</a>
+        <a th:href="@{/product/search/all}" class="text-blue-600 hover:underline">🧾 Product List</a>
+        <a th:href="@{/dashboard}" class="text-blue-600 hover:underline">📊 Dashboard</a>
+    </div>
+</nav>
+
+<!-- Flash Messages -->
+<div class="max-w-5xl mx-auto">
+    <div th:if="${message}" class="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-lg shadow mb-4">
+        ✅ <span th:text="${message}"></span>
+    </div>
+    <div th:if="${error}" class="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg shadow mb-4">
+        ❌ <span th:text="${error}"></span>
+    </div>
 </div>
 
-<!-- Messages Section -->
-<div th:if="${message}" class="message" th:text="${message}"></div>
-<div th:if="${error}" class="error" th:text="${error}"></div>
-
 <!-- Customer List Section -->
-<div class="section" th:if="${customers}">
-    <h1>Customer List</h1>
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
-                <!-- New column for View Products -->
-                <th>Browse</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="cust : ${customers}">
-                <td th:text="${cust.firstName}"></td>
-                <td th:text="${cust.lastName}"></td>
-                <td th:text="${cust.email}"></td>
-                <td th:text="${cust.phoneNumber}"></td>
-                <td>
-                    <form class="action-form" th:action="@{/customer/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${cust.id}">
-                        <button type="submit" class="btn btn-delete">Delete</button>
-                    </form>
-                    <form class="action-form" th:action="@{/customer/update}" method="post">
-                        <input type="hidden" name="id" th:value="${cust.id}">
-                        <button type="submit" class="btn">Update</button>
-                    </form>
-                </td>
-                <!-- New Browse Products cell -->
-                <td>
-                    <a th:href="@{/dashboard}" class="btn">View Products</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="max-w-7xl mx-auto mb-10" th:if="${customers}">
+    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-700">👥 Customer List</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left table-auto border-collapse">
+                <thead>
+                <tr class="bg-indigo-100 text-indigo-800 font-semibold">
+                    <th class="p-3">First Name</th>
+                    <th class="p-3">Last Name</th>
+                    <th class="p-3">Email</th>
+                    <th class="p-3">Phone</th>
+                    <th class="p-3">Actions</th>
+                    <th class="p-3">Browse</th>
+                </tr>
+                </thead>
+                <tbody class="text-sm text-gray-700">
+                <tr th:each="cust : ${customers}" class="hover:bg-gray-50 transition">
+                    <td class="p-3" th:text="${cust.firstName}"></td>
+                    <td class="p-3" th:text="${cust.lastName}"></td>
+                    <td class="p-3" th:text="${cust.email}"></td>
+                    <td class="p-3" th:text="${cust.phoneNumber}"></td>
+                    <td class="p-3">
+                        <form th:action="@{/customer/delete}" method="post" class="inline">
+                            <input type="hidden" name="id" th:value="${cust.id}">
+                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs mr-1">
+                                <i class="fa fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
+                        <form th:action="@{/customer/update}" method="post" class="inline">
+                            <input type="hidden" name="id" th:value="${cust.id}">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">
+                                <i class="fa fa-edit"></i> Update
+                            </button>
+                        </form>
+                    </td>
+                    <td class="p-3">
+                        <a th:href="@{/dashboard}" class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded text-xs">
+                            <i class="fa fa-box"></i> View Products
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <!-- Product List Section -->
-<div class="section" th:if="${products}">
-    <h1>Product List</h1>
-    <div>
-        <a th:href="@{/product/register}" class="btn">Add New Product</a>
-    </div>
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Manufactured Date</th>
-                <th>Expiration Date</th>
-                <th>Stock State</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="prod : ${products}">
-                <td th:text="${prod.productName}"></td>
-                <td th:text="${prod.description}"></td>
-                <td th:text="${'$' + #numbers.formatDecimal(prod.price, 1, 2)}"></td>
-                <td th:text="${#temporals.format(prod.manufacturedDate, 'yyyy-MM-dd')}"></td>
-                <td th:text="${prod.expirationDate != null} ?
-                    ${#temporals.format(prod.expirationDate, 'yyyy-MM-dd')} : 'N/A'"></td>
-                <td th:text="${prod.stockState}"></td>
-                <td>
-                    <form class="action-form" th:action="@{/product/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${prod.id}">
-                        <button type="submit" class="btn btn-delete">Delete</button>
-                    </form>
-                    <form class="action-form" th:action="@{/product/update}" method="post">
-                        <input type="hidden" name="id" th:value="${prod.id}">
-                        <button type="submit" class="btn">Update</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="max-w-7xl mx-auto" th:if="${products}">
+    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-bold text-gray-700">📦 Product List</h2>
+            <a th:href="@{/product/register}"
+               class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow text-sm">
+                <i class="fa fa-plus"></i> Add Product
+            </a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left table-auto border-collapse">
+                <thead>
+                <tr class="bg-purple-100 text-purple-800 font-semibold">
+                    <th class="p-3">Name</th>
+                    <th class="p-3">Description</th>
+                    <th class="p-3">Price</th>
+                    <th class="p-3">Manufactured</th>
+                    <th class="p-3">Expiration</th>
+                    <th class="p-3">Stock</th>
+                    <th class="p-3">Actions</th>
+                </tr>
+                </thead>
+                <tbody class="text-sm text-gray-700">
+                <tr th:each="prod : ${products}" class="hover:bg-gray-50 transition">
+                    <td class="p-3" th:text="${prod.productName}"></td>
+                    <td class="p-3" th:text="${prod.description}"></td>
+                    <td class="p-3" th:text="${'$' + #numbers.formatDecimal(prod.price, 1, 2)}"></td>
+                    <td class="p-3" th:text="${#temporals.format(prod.manufacturedDate, 'yyyy-MM-dd')}"></td>
+                    <td class="p-3"
+                        th:text="${prod.expirationDate != null} ? ${#temporals.format(prod.expirationDate, 'yyyy-MM-dd')} : 'N/A'">
+                    </td>
+                    <td class="p-3" th:text="${prod.stockState}"></td>
+                    <td class="p-3">
+                        <form th:action="@{/product/delete}" method="post" class="inline">
+                            <input type="hidden" name="id" th:value="${prod.id}">
+                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs mr-1">
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                        </form>
+                        <form th:action="@{/product/update}" method="post" class="inline">
+                            <input type="hidden" name="id" th:value="${prod.id}">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">
+                                <i class="fa fa-edit"></i> Update
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -24,5 +24,8 @@ public interface IProductService {
     List<Product> findByPriceBetweenAndState(Double minPrice, Double maxPrice, Boolean active);
     List<Product> getAllProducts();
     List<Product> findAll();
+    List<Product> searchByNameOrCategory(String query);
+
+
 
 }
