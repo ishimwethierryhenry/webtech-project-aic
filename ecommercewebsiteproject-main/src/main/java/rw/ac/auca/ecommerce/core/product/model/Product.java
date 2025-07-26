@@ -19,30 +19,32 @@ import java.util.UUID;
 @Getter @Setter
 @Entity
 public class Product extends AbstractBaseEntity {
-    @Column(name = "product_name" , nullable = false)
+    @Column(name = "product_name", nullable = false)
     private String productName;
     @Column(name = "image_url")
     private String imageUrl = "/images/default-product.png";
 
-    @Column(name = "description" , nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
 
-    @Column(name = "price" , nullable = false)
+    @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "manufactured_date" , nullable = false)
+    @Column(name = "manufactured_date", nullable = false)
     private LocalDate manufacturedDate;
 
-    @Column(name = "expiration_date" , nullable = true)
+    @Column(name = "expiration_date", nullable = true)
     private LocalDate expirationDate;
 
-    @Column(name = "stock_state" , nullable = false)
+    @Column(name = "stock_state", nullable = false)
     @Enumerated(EnumType.STRING)
     private EStockState stockState;
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
 
-
+    }
 }

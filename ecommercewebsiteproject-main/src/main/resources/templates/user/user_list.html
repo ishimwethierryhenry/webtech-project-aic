@@ -1,0 +1,118 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Users List</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--    <h2>All Users</h2>-->
+<!--    <a class="btn btn-success mb-3" th:href="@{/users/new}">+ Add New User</a>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Username</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Roles</th>-->
+<!--            <th>Actions</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="user : ${users}">-->
+<!--            <td th:text="${user.username}"></td>-->
+<!--            <td th:text="${user.email}"></td>-->
+<!--            <td>-->
+<!--                <ul class="list-unstyled mb-0" th:if="${user.roles != null and !user.roles.isEmpty()}">-->
+<!--                    <li th:each="role : ${user.roles}" th:text="${role.name}"></li>-->
+<!--                </ul>-->
+<!--                <span th:if="${user.roles == null or user.roles.isEmpty()}">No roles assigned</span>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-primary btn-sm me-2">Edit</a>-->
+<!--                <a th:href="@{/users/delete/{id}(id=${user.id})}"-->
+<!--                   class="btn btn-danger btn-sm"-->
+<!--                   onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>User List</h2>
+
+    <!-- Success message -->
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <!-- Error message -->
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <div class="mb-3">
+        <a th:href="@{/users/new}" class="btn btn-primary">Add New User</a>
+    </div>
+
+    <!-- Debug info -->
+    <div class="alert alert-info">
+        <strong>Debug Info:</strong>
+        <span th:text="'Total users count: ' + ${#lists.size(users)}"></span>
+    </div>
+
+    <div th:if="${#lists.isEmpty(users)}" class="alert alert-warning">
+        No users found.
+    </div>
+
+    <div th:unless="${#lists.isEmpty(users)}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.active}"></td>
+                <td>
+                    <span th:if="${#sets.isEmpty(user.roles)}">No roles</span>
+                    <span th:unless="${#sets.isEmpty(user.roles)}">
+                        <span th:each="role, iterStat : ${user.roles}">
+                            <span th:text="${role.name}"></span>
+                            <span th:if="!${iterStat.last}">, </span>
+                        </span>
+                    </span>
+                </td>
+                <td>
+                    <a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-sm btn-warning">Edit</a>
+                    <a th:href="@{'/users/delete/' + ${user.id}}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

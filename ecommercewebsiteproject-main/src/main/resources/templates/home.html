@@ -1,3 +1,1661 @@
+<!--&lt;!&ndash;&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <title>DEBORAH'S eCommerce Platform</title>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        :root {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;primary: #4361ee;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;secondary: #3f37c9;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;accent: #4895ef;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;light: #f8f9fa;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;dark: #212529;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;success: #4cc9f0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            &#45;&#45;warning: #f72585;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        * {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin: 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            box-sizing: border-box;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        body {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            min-height: 100vh;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: var(&#45;&#45;dark);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .header {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: white;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 2rem 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            box-shadow: 0 4px 12px rgba(0,0,0,0.1);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            position: relative;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            overflow: hidden;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .header::before {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            content: "";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            position: absolute;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            top: -50%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            left: -50%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            width: 200%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            height: 200%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .header-content {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            position: relative;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            z-index: 2;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .logo {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-weight: 700;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-size: 2.5rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            letter-spacing: -1px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin-bottom: 0.5rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .tagline {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-weight: 300;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            opacity: 0.9;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-size: 1.2rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            max-width: 600px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin: 0 auto;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .dashboard-container {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            max-width: 1200px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin: -50px auto 50px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 0 20px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .dashboard-grid {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            display: grid;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            gap: 25px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .dashboard-card {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: white;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            border-radius: 16px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            box-shadow: 0 8px 30px rgba(0,0,0,0.08);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            overflow: hidden;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            border: none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .dashboard-card:hover {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            transform: translateY(-8px);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            box-shadow: 0 12px 35px rgba(67, 97, 238, 0.2);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .card-header {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 1.5rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: white;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            border: none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            display: flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            align-items: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .card-header i {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-size: 1.8rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin-right: 15px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            width: 50px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            height: 50px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: rgba(255,255,255,0.2);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            border-radius: 50%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            display: flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            align-items: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            justify-content: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .card-body {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 1.8rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .link-list {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            list-style: none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin: 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .link-list li {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin-bottom: 12px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            border-radius: 8px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            overflow: hidden;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .link-list li:hover {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: rgba(67, 97, 238, 0.05);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            transform: translateX(5px);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .link-list li a {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            display: flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            align-items: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 12px 15px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            text-decoration: none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: var(&#45;&#45;dark);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            font-weight: 500;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .link-list li a:hover {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .link-list li a i {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin-right: 12px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            width: 32px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            height: 32px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: rgba(67, 97, 238, 0.1);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            border-radius: 8px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            display: flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            align-items: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            justify-content: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .footer {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            background: var(&#45;&#45;dark);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: white;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            padding: 2.5rem 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            text-align: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin-top: 3rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .footer-links {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            display: flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            justify-content: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            gap: 25px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            margin-top: 15px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            flex-wrap: wrap;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .footer-links a {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: rgba(255,255,255,0.7);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            text-decoration: none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .footer-links a:hover {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            color: white;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        @media (max-width: 768px) {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            .dashboard-grid {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                grid-template-columns: 1fr;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;            .header {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                padding: 1.5rem 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;            .logo {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                font-size: 2rem;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<header class="header text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="header-content">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <h1 class="logo">DEBORAH'S</h1>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <p class="tagline">Premium eCommerce Platform—Streamlined Management for Your Business</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</header>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="dashboard-container">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="dashboard-grid">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Products Card &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <i class="fas fa-box-open"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <h3 class="mb-0">Products</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-body">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <ul class="link-list">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/product/browse}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-search"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Browse Products&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/product/search/all}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-list"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Search All Products&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/product/register}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-plus-circle"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Register New Product&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Cart Card &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <i class="fas fa-shopping-cart"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <h3 class="mb-0">Cart</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-body">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <ul class="link-list">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/cart}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-eye"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            View Cart&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a href="#">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-plus"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Add to Cart (via Products)&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Orders Card &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <i class="fas fa-file-invoice"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <h3 class="mb-0">Orders</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-body">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <ul class="link-list">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/order/manage}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-tasks"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Manage Your Orders&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/order/create}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-file-alt"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Create Order&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/order/list}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-list-ol"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            View All Orders&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/order/search/all}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-user-shield"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            View All Orders (Admin)&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Customers Card &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <i class="fas fa-users"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <h3 class="mb-0">Customers</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-body">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <ul class="link-list">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/customer/search/all}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-address-book"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            View All Customers&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/customer/register}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-user-plus"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Register New Customer&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Warehouse Management Card &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <i class="fas fa-warehouse"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <h3 class="mb-0">Warehouse</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <div class="card-body">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <ul class="link-list">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/warehouse/list}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-list"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            View Warehouses&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/warehouse/add}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-plus-square"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Add New Warehouse&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <a th:href="@{/warehouse/assign-stock}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            <i class="fas fa-boxes"></i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                            Assign Stock to Warehouse&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        </a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<footer class="footer">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="container">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <p>&copy; 2023 DEBORAH'S eCommerce Platform. All rights reserved.</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="footer-links">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <a href="#">Privacy Policy</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <a href="#">Terms of Service</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <a href="#">Support</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <a href="#">Contact Us</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</footer>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<script>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    document.addEventListener('DOMContentLoaded', function() {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        const cards = document.querySelectorAll('.dashboard-card');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        cards.forEach((card, index) => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            setTimeout(() => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                card.style.opacity = "0";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                card.style.transform = "translateY(20px)";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                card.style.transition = "opacity 0.5s ease, transform 0.5s ease";&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;                setTimeout(() => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    card.style.opacity = "1";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    card.style.transform = "translateY(0)";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                }, 100);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            }, index * 100);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        });&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    });&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>DEBORAH'S eCommerce Platform</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        :root {&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;primary: #4361ee;&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;secondary: #3f37c9;&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;accent: #4895ef;&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;light: #f8f9fa;&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;dark: #212529;&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;success: #4cc9f0;&ndash;&gt;-->
+<!--&lt;!&ndash;            &#45;&#45;warning: #f72585;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        * {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-sizing: border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            min-height: 100vh;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;dark);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 2rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 4px 12px rgba(0,0,0,0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header::before {&ndash;&gt;-->
+<!--&lt;!&ndash;            content: "";&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: -50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            left: -50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 200%;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 200%;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header-content {&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            z-index: 2;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .logo {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 700;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 2.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            letter-spacing: -1px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 0.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .tagline {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 300;&ndash;&gt;-->
+<!--&lt;!&ndash;            opacity: 0.9;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 600px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0 auto;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .dashboard-container {&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 1200px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: -50px auto 50px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .dashboard-grid {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: grid;&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 3rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .dashboard-card {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 8px 30px rgba(0,0,0,0.08);&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .dashboard-card:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-8px);&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 12px 35px rgba(67, 97, 238, 0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .card-header {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .card-header i {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.8rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-right: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 50px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 50px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .card-body {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 1.8rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .link-list {&ndash;&gt;-->
+<!--&lt;!&ndash;            list-style: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .link-list li {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .link-list li:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(67, 97, 238, 0.05);&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateX(5px);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .link-list li a {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;dark);&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 500;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .link-list li a:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .link-list li a i {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-right: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 32px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 32px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(67, 97, 238, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Product Showcase Styles */&ndash;&gt;-->
+<!--&lt;!&ndash;        .products-section {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 10px 40px rgba(0,0,0,0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 2.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 3rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .section-header {&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 2.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .section-title {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 2.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 700;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 0.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .section-subtitle {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #666;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .products-grid {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: grid;&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-card {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 6px 25px rgba(0,0,0,0.08);&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-card:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-10px);&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 15px 40px rgba(67, 97, 238, 0.15);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-image {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 220px;&ndash;&gt;-->
+<!--&lt;!&ndash;            object-fit: cover;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: transform 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-card:hover .product-image {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: scale(1.05);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-info {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-title {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 600;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;dark);&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 0.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            line-height: 1.3;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-price {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.4rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 700;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 0.8rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-description {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #666;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 0.9rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            line-height: 1.4;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .product-actions {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-add-cart {&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 10px 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 500;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-add-cart:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-2px);&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-wishlist {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 45px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 45px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(67, 97, 238, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: var(&#45;&#45;primary);&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-wishlist:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: var(&#45;&#45;primary);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .footer {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: var(&#45;&#45;dark);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 2.5rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 3rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .footer-links {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .footer-links a {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: rgba(255,255,255,0.7);&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.2s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .footer-links a:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @media (max-width: 768px) {&ndash;&gt;-->
+<!--&lt;!&ndash;            .dashboard-grid {&ndash;&gt;-->
+<!--&lt;!&ndash;                grid-template-columns: 1fr;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .header {&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 1.5rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .logo {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .products-grid {&ndash;&gt;-->
+<!--&lt;!&ndash;                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));&ndash;&gt;-->
+<!--&lt;!&ndash;                gap: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .products-section {&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<header class="header text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="header-content">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h1 class="logo">DEBORAH'S</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p class="tagline">Premium eCommerce Platform—Streamlined Management for Your Business</p>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</header>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="dashboard-container">&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash; Featured Products Section &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="products-section">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="section-header">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2 class="section-title">Featured Products</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p class="section-subtitle">Discover our latest and most popular items</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="products-grid">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop" alt="Nike Running Shoes" class="product-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="product-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="product-title">Premium Running Shoes</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-price">$129.99</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="product-description">Lightweight and comfortable running shoes designed for performance and style.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-actions">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-add-cart">Add to Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-wishlist"><i class="fas fa-heart"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop" alt="Smart Watch" class="product-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="product-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="product-title">Smart Fitness Watch</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-price">$299.99</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="product-description">Advanced fitness tracking with heart rate monitoring and GPS functionality.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-actions">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-add-cart">Add to Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-wishlist"><i class="fas fa-heart"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop" alt="Wireless Headphones" class="product-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="product-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="product-title">Wireless Headphones</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-price">$199.99</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="product-description">Premium sound quality with active noise cancellation and 30-hour battery life.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-actions">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-add-cart">Add to Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-wishlist"><i class="fas fa-heart"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop" alt="Laptop Backpack" class="product-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="product-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="product-title">Professional Laptop Backpack</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-price">$89.99</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="product-description">Durable and stylish backpack with dedicated laptop compartment and USB charging port.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-actions">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-add-cart">Add to Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-wishlist"><i class="fas fa-heart"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop" alt="Sunglasses" class="product-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="product-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="product-title">Designer Sunglasses</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-price">$159.99</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="product-description">Stylish polarized sunglasses with UV protection and premium frame construction.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-actions">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-add-cart">Add to Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-wishlist"><i class="fas fa-heart"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop" alt="Smartphone" class="product-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="product-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="product-title">Latest Smartphone</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-price">$699.99</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="product-description">Cutting-edge smartphone with advanced camera system and lightning-fast performance.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="product-actions">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-add-cart">Add to Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn-wishlist"><i class="fas fa-heart"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Dashboard Grid &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="dashboard-grid">&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; Products Card &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fas fa-box-open"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h3 class="mb-0">Products</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="link-list">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/product/browse}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-search"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Browse Products&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/product/search/all}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-list"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Search All Products&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/product/register}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-plus-circle"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Register New Product&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Cart Card &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fas fa-shopping-cart"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h3 class="mb-0">Cart</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="link-list">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/cart}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-eye"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            View Cart&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="#">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Add to Cart (via Products)&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Orders Card &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fas fa-file-invoice"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h3 class="mb-0">Orders</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="link-list">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/order/manage}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tasks"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Manage Your Orders&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/order/create}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-file-alt"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Create Order&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/order/list}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-list-ol"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            View All Orders&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/order/search/all}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-user-shield"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            View All Orders (Admin)&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Customers Card &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fas fa-users"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h3 class="mb-0">Customers</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="link-list">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/customer/search/all}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-address-book"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            View All Customers&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/customer/register}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-user-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Register New Customer&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Warehouse Management Card &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="dashboard-card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fas fa-warehouse"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h3 class="mb-0">Warehouse</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="link-list">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/warehouse/list}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-list"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            View Warehouses&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/warehouse/add}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-plus-square"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Add New Warehouse&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/warehouse/assign-stock}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-boxes"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            Assign Stock to Warehouse&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<footer class="footer">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <p>&copy; 2023 DEBORAH'S eCommerce Platform. All rights reserved.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="footer-links">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="#">Privacy Policy</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="#">Terms of Service</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="#">Support</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="#">Contact Us</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</footer>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;    document.addEventListener('DOMContentLoaded', function() {&ndash;&gt;-->
+<!--&lt;!&ndash;        // Animate dashboard cards&ndash;&gt;-->
+<!--&lt;!&ndash;        const cards = document.querySelectorAll('.dashboard-card');&ndash;&gt;-->
+<!--&lt;!&ndash;        cards.forEach((card, index) => {&ndash;&gt;-->
+<!--&lt;!&ndash;            setTimeout(() => {&ndash;&gt;-->
+<!--&lt;!&ndash;                card.style.opacity = "0";&ndash;&gt;-->
+<!--&lt;!&ndash;                card.style.transform = "translateY(20px)";&ndash;&gt;-->
+<!--&lt;!&ndash;                card.style.transition = "opacity 0.5s ease, transform 0.5s ease";&ndash;&gt;-->
+
+<!--&lt;!&ndash;                setTimeout(() => {&ndash;&gt;-->
+<!--&lt;!&ndash;                    card.style.opacity = "1";&ndash;&gt;-->
+<!--&lt;!&ndash;                    card.style.transform = "translateY(0)";&ndash;&gt;-->
+<!--&lt;!&ndash;                }, 100);&ndash;&gt;-->
+<!--&lt;!&ndash;            }, index * 100);&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Animate product cards&ndash;&gt;-->
+<!--&lt;!&ndash;        const productCards = document.querySelectorAll('.product-card');&ndash;&gt;-->
+<!--&lt;!&ndash;        productCards.forEach((card, index) => {&ndash;&gt;-->
+<!--&lt;!&ndash;            setTimeout(() => {&ndash;&gt;-->
+<!--&lt;!&ndash;                card.style.opacity = "0";&ndash;&gt;-->
+<!--&lt;!&ndash;                card.style.transform = "translateY(30px)";&ndash;&gt;-->
+<!--&lt;!&ndash;                card.style.transition = "opacity 0.6s ease, transform 0.6s ease";&ndash;&gt;-->
+
+<!--&lt;!&ndash;                setTimeout(() => {&ndash;&gt;-->
+<!--&lt;!&ndash;                    card.style.opacity = "1";&ndash;&gt;-->
+<!--&lt;!&ndash;                    card.style.transform = "translateY(0)";&ndash;&gt;-->
+<!--&lt;!&ndash;                }, 150);&ndash;&gt;-->
+<!--&lt;!&ndash;            }, index * 150);&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Add to cart functionality&ndash;&gt;-->
+<!--&lt;!&ndash;        const addToCartButtons = document.querySelectorAll('.btn-add-cart');&ndash;&gt;-->
+<!--&lt;!&ndash;        addToCartButtons.forEach(button => {&ndash;&gt;-->
+<!--&lt;!&ndash;            button.addEventListener('click', function(e) {&ndash;&gt;-->
+<!--&lt;!&ndash;                e.preventDefault();&ndash;&gt;-->
+
+<!--&lt;!&ndash;                // Get product info&ndash;&gt;-->
+<!--&lt;!&ndash;                const productCard = this.closest('.product-card');&ndash;&gt;-->
+<!--&lt;!&ndash;                const productTitle = productCard.querySelector('.product-title').textContent;&ndash;&gt;-->
+<!--&lt;!&ndash;                const productPrice = productCard.querySelector('.product-price').textContent;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                // Visual feedback&ndash;&gt;-->
+<!--&lt;!&ndash;                this.innerHTML = '<i class="fas fa-check"></i> Added!';&ndash;&gt;-->
+<!--&lt;!&ndash;                this.disabled = true;&ndash;&gt;-->
+<!--&lt;!&ndash;                this.style.background = '#4cc9f0';&ndash;&gt;-->
+
+<!--&lt;!&ndash;                // Reset button after 2 seconds&ndash;&gt;-->
+<!--&lt;!&ndash;                setTimeout(() => {&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.innerHTML = 'Add to Cart';&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.disabled = false;&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.style.background = '';&ndash;&gt;-->
+<!--&lt;!&ndash;                }, 2000);&ndash;&gt;-->
+
+<!--&lt;!&ndash;                // Show notification (you can integrate with your backend here)&ndash;&gt;-->
+<!--&lt;!&ndash;                showNotification(`${productTitle} added to cart for ${productPrice}`);&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Wishlist functionality&ndash;&gt;-->
+<!--&lt;!&ndash;        const wishlistButtons = document.querySelectorAll('.btn-wishlist');&ndash;&gt;-->
+<!--&lt;!&ndash;        wishlistButtons.forEach(button => {&ndash;&gt;-->
+<!--&lt;!&ndash;            button.addEventListener('click', function(e) {&ndash;&gt;-->
+<!--&lt;!&ndash;                e.preventDefault();&ndash;&gt;-->
+
+<!--&lt;!&ndash;                const heart = this.querySelector('i');&ndash;&gt;-->
+<!--&lt;!&ndash;                if (heart.classList.contains('fas')) {&ndash;&gt;-->
+<!--&lt;!&ndash;                    heart.classList.remove('fas');&ndash;&gt;-->
+<!--&lt;!&ndash;                    heart.classList.add('far');&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.style.background = 'rgba(67, 97, 238, 0.1)';&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.style.color = 'var(&#45;&#45;primary)';&ndash;&gt;-->
+<!--&lt;!&ndash;                } else {&ndash;&gt;-->
+<!--&lt;!&ndash;                    heart.classList.remove('far');&ndash;&gt;-->
+<!--&lt;!&ndash;                    heart.classList.add('fas');&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.style.background = '#f72585';&ndash;&gt;-->
+<!--&lt;!&ndash;                    this.style.color = 'white';&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Notification function&ndash;&gt;-->
+<!--&lt;!&ndash;    function showNotification(message) {&ndash;&gt;-->
+<!--&lt;!&ndash;        const notification = document.createElement('div');&ndash;&gt;-->
+<!--&lt;!&ndash;        notification.style.cssText = `&ndash;&gt;-->
+<!--&lt;!&ndash;            position: fixed;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            right: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(120deg, #4361ee, #3f37c9);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 15px 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 5px 15px rgba(0,0,0,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            z-index: 1000;&ndash;&gt;-->
+<!--&lt;!&ndash;            animation: slideIn 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        `;&ndash;&gt;-->
+<!--&lt;!&ndash;        notification.textContent = message;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Add animation keyframes&ndash;&gt;-->
+<!--&lt;!&ndash;        if (!document.querySelector('#notification-styles')) {&ndash;&gt;-->
+<!--&lt;!&ndash;            const style = document.createElement('style');&ndash;&gt;-->
+<!--&lt;!&ndash;            style.id = 'notification-styles';&ndash;&gt;-->
+<!--&lt;!&ndash;            style.textContent = `&ndash;&gt;-->
+<!--&lt;!&ndash;                @keyframes slideIn {&ndash;&gt;-->
+<!--&lt;!&ndash;                    from { transform: translateX(100%); opacity: 0; }&ndash;&gt;-->
+<!--&lt;!&ndash;                    to { transform: translateX(0); opacity: 1; }&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;                @keyframes slideOut {&ndash;&gt;-->
+<!--&lt;!&ndash;                    from { transform: translateX(0); opacity: 1; }&ndash;&gt;-->
+<!--&lt;!&ndash;                    to { transform: translateX(100%); opacity: 0; }&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;            `;&ndash;&gt;-->
+<!--&lt;!&ndash;            document.head.appendChild(style);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        document.body.appendChild(notification);&ndash;&gt;-->
+
+<!--&lt;!&ndash;        setTimeout(() => {&ndash;&gt;-->
+<!--&lt;!&ndash;            notification.style.animation = 'slideOut 0.3s ease';&ndash;&gt;-->
+<!--&lt;!&ndash;            setTimeout(() => notification.remove(), 300);&ndash;&gt;-->
+<!--&lt;!&ndash;        }, 3000);&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>DEBORAH'S eCommerce Platform</title>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--    <style>-->
+<!--        :root {-->
+<!--            &#45;&#45;primary: #4361ee;-->
+<!--            &#45;&#45;secondary: #3f37c9;-->
+<!--            &#45;&#45;accent: #4895ef;-->
+<!--            &#45;&#45;light: #f8f9fa;-->
+<!--            &#45;&#45;dark: #212529;-->
+<!--            &#45;&#45;success: #4cc9f0;-->
+<!--            &#45;&#45;warning: #f72585;-->
+<!--        }-->
+
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);-->
+<!--            min-height: 100vh;-->
+<!--            color: var(&#45;&#45;dark);-->
+<!--        }-->
+
+<!--        .header {-->
+<!--            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));-->
+<!--            color: white;-->
+<!--            padding: 2rem 0;-->
+<!--            box-shadow: 0 4px 12px rgba(0,0,0,0.1);-->
+<!--            position: relative;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .header::before {-->
+<!--            content: "";-->
+<!--            position: absolute;-->
+<!--            top: -50%;-->
+<!--            left: -50%;-->
+<!--            width: 200%;-->
+<!--            height: 200%;-->
+<!--            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);-->
+<!--        }-->
+
+<!--        .header-content {-->
+<!--            position: relative;-->
+<!--            z-index: 2;-->
+<!--        }-->
+
+<!--        .logo {-->
+<!--            font-weight: 700;-->
+<!--            font-size: 2.5rem;-->
+<!--            letter-spacing: -1px;-->
+<!--            margin-bottom: 0.5rem;-->
+<!--        }-->
+
+<!--        .tagline {-->
+<!--            font-weight: 300;-->
+<!--            opacity: 0.9;-->
+<!--            font-size: 1.2rem;-->
+<!--            max-width: 600px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+
+<!--        .dashboard-container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: -50px auto 50px;-->
+<!--            padding: 0 20px;-->
+<!--        }-->
+
+<!--        .dashboard-grid {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));-->
+<!--            gap: 25px;-->
+<!--            margin-bottom: 3rem;-->
+<!--        }-->
+
+<!--        .dashboard-card {-->
+<!--            background: white;-->
+<!--            border-radius: 16px;-->
+<!--            box-shadow: 0 8px 30px rgba(0,0,0,0.08);-->
+<!--            transition: all 0.3s ease;-->
+<!--            overflow: hidden;-->
+<!--            border: none;-->
+<!--        }-->
+
+<!--        .dashboard-card:hover {-->
+<!--            transform: translateY(-8px);-->
+<!--            box-shadow: 0 12px 35px rgba(67, 97, 238, 0.2);-->
+<!--        }-->
+
+<!--        .card-header {-->
+<!--            padding: 1.5rem;-->
+<!--            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .card-header i {-->
+<!--            font-size: 1.8rem;-->
+<!--            margin-right: 15px;-->
+<!--            width: 50px;-->
+<!--            height: 50px;-->
+<!--            background: rgba(255,255,255,0.2);-->
+<!--            border-radius: 50%;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .card-body {-->
+<!--            padding: 1.8rem;-->
+<!--        }-->
+
+<!--        .link-list {-->
+<!--            list-style: none;-->
+<!--            padding: 0;-->
+<!--            margin: 0;-->
+<!--        }-->
+
+<!--        .link-list li {-->
+<!--            margin-bottom: 12px;-->
+<!--            border-radius: 8px;-->
+<!--            overflow: hidden;-->
+<!--            transition: all 0.2s ease;-->
+<!--        }-->
+
+<!--        .link-list li:hover {-->
+<!--            background: rgba(67, 97, 238, 0.05);-->
+<!--            transform: translateX(5px);-->
+<!--        }-->
+
+<!--        .link-list li a {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            padding: 12px 15px;-->
+<!--            text-decoration: none;-->
+<!--            color: var(&#45;&#45;dark);-->
+<!--            font-weight: 500;-->
+<!--            transition: all 0.2s ease;-->
+<!--        }-->
+
+<!--        .link-list li a:hover {-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--        }-->
+
+<!--        .link-list li a i {-->
+<!--            margin-right: 12px;-->
+<!--            width: 32px;-->
+<!--            height: 32px;-->
+<!--            background: rgba(67, 97, 238, 0.1);-->
+<!--            border-radius: 8px;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--        }-->
+
+<!--        /* Welcome Section Styles */-->
+<!--        .welcome-section {-->
+<!--            background: white;-->
+<!--            border-radius: 20px;-->
+<!--            box-shadow: 0 10px 40px rgba(0,0,0,0.1);-->
+<!--            padding: 3rem 2.5rem;-->
+<!--            margin-bottom: 3rem;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .welcome-title {-->
+<!--            font-size: 2.5rem;-->
+<!--            font-weight: 700;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--            margin-bottom: 1rem;-->
+<!--            background: linear-gradient(120deg, var(&#45;&#45;primary), var(&#45;&#45;secondary));-->
+<!--            -webkit-background-clip: text;-->
+<!--            -webkit-text-fill-color: transparent;-->
+<!--            background-clip: text;-->
+<!--        }-->
+
+<!--        .welcome-description {-->
+<!--            font-size: 1.2rem;-->
+<!--            color: #666;-->
+<!--            line-height: 1.8;-->
+<!--            max-width: 800px;-->
+<!--            margin: 0 auto 2rem;-->
+<!--        }-->
+
+<!--        .features-grid {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));-->
+<!--            gap: 2rem;-->
+<!--            margin-top: 2.5rem;-->
+<!--        }-->
+
+<!--        .feature-item {-->
+<!--            padding: 1.5rem;-->
+<!--            border-radius: 15px;-->
+<!--            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(63, 55, 201, 0.05));-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .feature-item:hover {-->
+<!--            transform: translateY(-5px);-->
+<!--            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.1);-->
+<!--        }-->
+
+<!--        .feature-icon {-->
+<!--            font-size: 2.5rem;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--            margin-bottom: 1rem;-->
+<!--        }-->
+
+<!--        .feature-title {-->
+<!--            font-size: 1.3rem;-->
+<!--            font-weight: 600;-->
+<!--            color: var(&#45;&#45;dark);-->
+<!--            margin-bottom: 0.5rem;-->
+<!--        }-->
+
+<!--        .feature-description {-->
+<!--            color: #666;-->
+<!--            font-size: 0.95rem;-->
+<!--            line-height: 1.5;-->
+<!--        }-->
+
+<!--        .footer {-->
+<!--            background: var(&#45;&#45;dark);-->
+<!--            color: white;-->
+<!--            padding: 2.5rem 0;-->
+<!--            text-align: center;-->
+<!--            margin-top: 3rem;-->
+<!--        }-->
+
+<!--        .footer-links {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            gap: 25px;-->
+<!--            margin-top: 15px;-->
+<!--            flex-wrap: wrap;-->
+<!--        }-->
+
+<!--        .footer-links a {-->
+<!--            color: rgba(255,255,255,0.7);-->
+<!--            text-decoration: none;-->
+<!--            transition: all 0.2s ease;-->
+<!--        }-->
+
+<!--        .footer-links a:hover {-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        @media (max-width: 768px) {-->
+<!--            .dashboard-grid {-->
+<!--                grid-template-columns: 1fr;-->
+<!--            }-->
+
+<!--            .header {-->
+<!--                padding: 1.5rem 0;-->
+<!--            }-->
+
+<!--            .logo {-->
+<!--                font-size: 2rem;-->
+<!--            }-->
+
+<!--            .welcome-section {-->
+<!--                padding: 2rem 1.5rem;-->
+<!--            }-->
+
+<!--            .welcome-title {-->
+<!--                font-size: 2rem;-->
+<!--            }-->
+
+<!--            .features-grid {-->
+<!--                grid-template-columns: 1fr;-->
+<!--                gap: 1.5rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="header text-center">-->
+<!--    <div class="header-content">-->
+<!--        <h1 class="logo">DEBORAH'S</h1>-->
+<!--        <p class="tagline">Premium eCommerce Platform—Streamlined Management for Your Business</p>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--<div class="dashboard-container">-->
+<!--    &lt;!&ndash; Welcome Section &ndash;&gt;-->
+<!--    <div class="welcome-section">-->
+<!--        <h2 class="welcome-title">We Have Many Products for You</h2>-->
+<!--        <p class="welcome-description">-->
+<!--            Welcome to DEBORAH'S premium eCommerce platform! Discover an extensive collection of high-quality products-->
+<!--            carefully curated to meet all your needs. From the latest technology gadgets to stylish fashion accessories,-->
+<!--            home essentials to professional tools—we have everything you're looking for and more.-->
+<!--        </p>-->
+
+<!--        <div class="features-grid">-->
+<!--            <div class="feature-item">-->
+<!--                <div class="feature-icon">-->
+<!--                    <i class="fas fa-star"></i>-->
+<!--                </div>-->
+<!--                <h3 class="feature-title">Premium Quality</h3>-->
+<!--                <p class="feature-description">Every product is carefully selected to ensure the highest quality standards and customer satisfaction.</p>-->
+<!--            </div>-->
+
+<!--            <div class="feature-item">-->
+<!--                <div class="feature-icon">-->
+<!--                    <i class="fas fa-shipping-fast"></i>-->
+<!--                </div>-->
+<!--                <h3 class="feature-title">Fast Delivery</h3>-->
+<!--                <p class="feature-description">Quick and reliable shipping to get your products to you as fast as possible, wherever you are.</p>-->
+<!--            </div>-->
+
+<!--            <div class="feature-item">-->
+<!--                <div class="feature-icon">-->
+<!--                    <i class="fas fa-shield-alt"></i>-->
+<!--                </div>-->
+<!--                <h3 class="feature-title">Secure Shopping</h3>-->
+<!--                <p class="feature-description">Shop with confidence knowing your personal information and transactions are completely secure.</p>-->
+<!--            </div>-->
+
+<!--            <div class="feature-item">-->
+<!--                <div class="feature-icon">-->
+<!--                    <i class="fas fa-headset"></i>-->
+<!--                </div>-->
+<!--                <h3 class="feature-title">24/7 Support</h3>-->
+<!--                <p class="feature-description">Our dedicated customer support team is always ready to help you with any questions or concerns.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Dashboard Grid &ndash;&gt;-->
+<!--    <div class="dashboard-grid">-->
+<!--        &lt;!&ndash; Products Card &ndash;&gt;-->
+<!--        <div class="dashboard-card">-->
+<!--            <div class="card-header">-->
+<!--                <i class="fas fa-box-open"></i>-->
+<!--                <h3 class="mb-0">Products</h3>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <ul class="link-list">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/product/browse}">-->
+<!--                            <i class="fas fa-search"></i>-->
+<!--                            Browse Products-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/product/search/all}">-->
+<!--                            <i class="fas fa-list"></i>-->
+<!--                            Search All Products-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/product/register}">-->
+<!--                            <i class="fas fa-plus-circle"></i>-->
+<!--                            Register New Product-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Cart Card &ndash;&gt;-->
+<!--        <div class="dashboard-card">-->
+<!--            <div class="card-header">-->
+<!--                <i class="fas fa-shopping-cart"></i>-->
+<!--                <h3 class="mb-0">Cart</h3>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <ul class="link-list">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/cart}">-->
+<!--                            <i class="fas fa-eye"></i>-->
+<!--                            View Cart-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#">-->
+<!--                            <i class="fas fa-plus"></i>-->
+<!--                            Add to Cart (via Products)-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Orders Card &ndash;&gt;-->
+<!--        <div class="dashboard-card">-->
+<!--            <div class="card-header">-->
+<!--                <i class="fas fa-file-invoice"></i>-->
+<!--                <h3 class="mb-0">Orders</h3>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <ul class="link-list">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/order/manage}">-->
+<!--                            <i class="fas fa-tasks"></i>-->
+<!--                            Manage Your Orders-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/order/create}">-->
+<!--                            <i class="fas fa-file-alt"></i>-->
+<!--                            Create Order-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/order/list}">-->
+<!--                            <i class="fas fa-list-ol"></i>-->
+<!--                            View All Orders-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/order/search/all}">-->
+<!--                            <i class="fas fa-user-shield"></i>-->
+<!--                            View All Orders (Admin)-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Customers Card &ndash;&gt;-->
+<!--        <div class="dashboard-card">-->
+<!--            <div class="card-header">-->
+<!--                <i class="fas fa-users"></i>-->
+<!--                <h3 class="mb-0">Customers</h3>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <ul class="link-list">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/customer/search/all}">-->
+<!--                            <i class="fas fa-address-book"></i>-->
+<!--                            View All Customers-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/customer/register}">-->
+<!--                            <i class="fas fa-user-plus"></i>-->
+<!--                            Register New Customer-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Warehouse Management Card &ndash;&gt;-->
+<!--        <div class="dashboard-card">-->
+<!--            <div class="card-header">-->
+<!--                <i class="fas fa-warehouse"></i>-->
+<!--                <h3 class="mb-0">Warehouse</h3>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <ul class="link-list">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/warehouse/list}">-->
+<!--                            <i class="fas fa-list"></i>-->
+<!--                            View Warehouses-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/warehouse/add}">-->
+<!--                            <i class="fas fa-plus-square"></i>-->
+<!--                            Add New Warehouse-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a th:href="@{/warehouse/assign-stock}">-->
+<!--                            <i class="fas fa-boxes"></i>-->
+<!--                            Assign Stock to Warehouse-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer class="footer">-->
+<!--    <div class="container">-->
+<!--        <p>&copy; 2023 DEBORAH'S eCommerce Platform. All rights reserved.</p>-->
+<!--        <div class="footer-links">-->
+<!--            <a href="#">Privacy Policy</a>-->
+<!--            <a href="#">Terms of Service</a>-->
+<!--            <a href="#">Support</a>-->
+<!--            <a href="#">Contact Us</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        // Animate dashboard cards-->
+<!--        const cards = document.querySelectorAll('.dashboard-card');-->
+<!--        cards.forEach((card, index) => {-->
+<!--            setTimeout(() => {-->
+<!--                card.style.opacity = "0";-->
+<!--                card.style.transform = "translateY(20px)";-->
+<!--                card.style.transition = "opacity 0.5s ease, transform 0.5s ease";-->
+
+<!--                setTimeout(() => {-->
+<!--                    card.style.opacity = "1";-->
+<!--                    card.style.transform = "translateY(0)";-->
+<!--                }, 100);-->
+<!--            }, index * 100);-->
+<!--        });-->
+
+<!--        // Animate feature items-->
+<!--        const featureItems = document.querySelectorAll('.feature-item');-->
+<!--        featureItems.forEach((item, index) => {-->
+<!--            setTimeout(() => {-->
+<!--                item.style.opacity = "0";-->
+<!--                item.style.transform = "translateY(30px)";-->
+<!--                item.style.transition = "opacity 0.6s ease, transform 0.6s ease";-->
+
+<!--                setTimeout(() => {-->
+<!--                    item.style.opacity = "1";-->
+<!--                    item.style.transform = "translateY(0)";-->
+<!--                }, 150);-->
+<!--            }, index * 150);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -79,6 +1737,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
+            margin-bottom: 3rem;
         }
 
         .dashboard-card {
@@ -164,6 +1823,73 @@
             color: var(--primary);
         }
 
+        /* Welcome Section Styles */
+        .welcome-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 3rem 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-description {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(63, 55, 201, 0.05));
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         .footer {
             background: var(--dark);
             color: white;
@@ -202,6 +1928,19 @@
             .logo {
                 font-size: 2rem;
             }
+
+            .welcome-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -214,6 +1953,51 @@
 </header>
 
 <div class="dashboard-container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h2 class="welcome-title">We Have Many Products for You</h2>
+        <p class="welcome-description">
+            Welcome to DEBORAH'S premium eCommerce platform! Discover an extensive collection of high-quality products
+            carefully curated to meet all your needs. From the latest technology gadgets to stylish fashion accessories,
+            home essentials to professional tools—we have everything you're looking for and more.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="feature-title">Premium Quality</h3>
+                <p class="feature-description">Every product is carefully selected to ensure the highest quality standards and customer satisfaction.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 class="feature-title">Fast Delivery</h3>
+                <p class="feature-description">Quick and reliable shipping to get your products to you as fast as possible, wherever you are.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Secure Shopping</h3>
+                <p class="feature-description">Shop with confidence knowing your personal information and transactions are completely secure.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="feature-title">24/7 Support</h3>
+                <p class="feature-description">Our dedicated customer support team is always ready to help you with any questions or concerns.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Grid -->
     <div class="dashboard-grid">
         <!-- Products Card -->
         <div class="dashboard-card">
@@ -305,6 +2089,30 @@
             </div>
         </div>
 
+        <!-- Users Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-user-cog"></i>
+                <h3 class="mb-0">Users</h3>
+            </div>
+            <div class="card-body">
+                <ul class="link-list">
+                    <li>
+                        <a th:href="@{/users/all}">
+                            <i class="fas fa-list"></i>
+                            View All Users
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/users/new}">
+                            <i class="fas fa-user-plus"></i>
+                            Create New User
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <!-- Customers Card -->
         <div class="dashboard-card">
             <div class="card-header">
@@ -375,8 +2183,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-
     document.addEventListener('DOMContentLoaded', function() {
+        // Animate dashboard cards
         const cards = document.querySelectorAll('.dashboard-card');
         cards.forEach((card, index) => {
             setTimeout(() => {
@@ -389,6 +2197,21 @@
                     card.style.transform = "translateY(0)";
                 }, 100);
             }, index * 100);
+        });
+
+        // Animate feature items
+        const featureItems = document.querySelectorAll('.feature-item');
+        featureItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = "0";
+                item.style.transform = "translateY(30px)";
+                item.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+
+                setTimeout(() => {
+                    item.style.opacity = "1";
+                    item.style.transform = "translateY(0)";
+                }, 150);
+            }, index * 150);
         });
     });
 </script>
